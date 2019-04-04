@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<title>Hello, world!</title>
+</head>
+<body>
+	<div class="container-fluid h-100">
+		<div class="row h-100">
+			<aside class="col-12 col-md-2 p-0 bg-dark sticky-top">
+				<nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start py-2">
+					<div class="collapse navbar-collapse">
+						<ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+							<li class="nav-item">
+								<a class="nav-link pl-0 text-nowrap" href="#"><i class="fa fa-bullseye fa-2x"></i> <span class="font-weight-bold">Brand</span></a>
+							</li>
+							<br>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="#"><i class="fa fa-home fa-2x"></i> <span class="d-none d-md-inline">Dashboard</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="#"><i class="fa fa-clock-o fa-2x"></i> <span class="d-none d-md-inline">Previous Orders</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="#"><i class="fa fa-heart fa-2x"></i> <span class="d-none d-md-inline">Favorite Orders</span></a>
+							</li>
+							<br>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="#"><i class="fa fa-sign-out fa-2x"></i> <span class="d-none d-md-inline">Log Out</span></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</aside>
+			<main class="col bg-faded py-3" style="min-height: 650px">
+				<div class="content container">
+					<div class="greeting m-5">
+						<h2 class="text-center font-weight-normal">Tell us a little more!</h2>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-6">
+							<div class="progress mb-5">
+								<div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 order-md-last">
+							<div class="">
+								<h5>Total order</h5>
+								<table class="table border">
+									<tbody>
+										<tr>
+											<td>
+												<span>1 - 12 oz. Iced Latte</span>
+												<br>
+												<span>Almond Milk</span>
+											</td>
+											<td class="align-middle">$4.4</td>
+											<td class="align-middle"><i class="text-danger fa fa-times fa-lg delete-item"></i></td>
+										</tr>
+										<tr>
+											<td>
+												<span>1 - 12 oz. Iced Latte</span>
+												<br>
+												<span>Almond Milk</span>
+											</td>
+											<td class="align-middle">$4.4</td>
+											<td class="align-middle"><i class="text-danger fa fa-times fa-lg delete-item"></i></td>
+										</tr>
+										<tr>
+											<td class="text-success">Total</td>
+											<td class="text-success">$9.76</td>
+											<td></td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="float-right mb-3">								
+									<button type="button" class="btn btn-outline-warning"><i class="fa fa-pencil"></i>Edit order</button>
+									<button type="button" class="btn btn-primary"><i class="fa fa-check"></i>Submit order</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-6 offset-md-1">
+							<form accept-charset="utf-8">
+								<h5 class="font-weight-normal">Pick up now or schedule pick up?</h5>
+								<div class="form-row">
+									<div class="col-3">
+										<div class="form-check mt-1">
+											<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+											<label class="form-check-label" for="exampleRadios1">
+												Now
+											</label>
+										</div>
+									</div>
+									<div class="col">
+										<div class="form-row align-items-center">
+											<label for="exampleFormControlSelect1" class="col-auto mt-2">Pick up at</label>
+											<select class="form-control col-3" id="exampleFormControlSelect1">
+												<option>Time</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<h5 class="font-weight-normal mt-3">How will you get to the shop?</h5>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+									<label class="form-check-label" for="inlineRadio1">
+										<i class="fa fa-male fa-2x text-success"></i>
+										<span>Walking</span>
+									</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+									<label class="form-check-label" for="inlineRadio2">
+										<i class="fa fa-bicycle fa-2x text-success"></i>
+										<span>Biking</span>
+									</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+									<label class="form-check-label" for="inlineRadio3">
+										<i class="fa fa-car fa-2x text-success"></i>
+										<span>Driving</span>
+									</label>
+								</div>
+
+								<hr>
+								<h5 class="font-weight-normal mt-3">How will you pay the order?</h5>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio1" value="option1">
+									<label class="form-check-label" for="inlineRadio1">
+										<span>Pay by card</span>
+									</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions2" id="inlineRadio2" value="option2">
+									<label class="form-check-label" for="inlineRadio2">
+										<span>Pay when arrive</span>
+									</label>
+								</div>
+							</form>
+							
+						</div>
+						
+					</div>
+					
+					
+					<div class="footer">
+						
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+
+	
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>
