@@ -5,7 +5,8 @@ const connection = database.getConnection();
 
 const getAllBills = () => {
     let defer = q.defer();
-    connection.query('SELECT * FROM bills', (err, result) => {
+    let sql = 'SELECT * FROM bills b, bill_detail bd WHERE b.b_id = bd.b_id';
+    connection.query(sql, (err, result) => {
         if (err) defer.reject(err);
         else {
             defer.resolve(result);
@@ -16,7 +17,8 @@ const getAllBills = () => {
 
 const getBillById = id => {
     let defer = q.defer();
-    connection.query("SELECT * FROM bills WHERE b_id = ?", id, (err, result) => {
+    let sql = "SELECT * FROM bills b, bill_detail bd WHERE b.b_id = ? AND b.b_id = bd.b_id";
+    connection.query(sql, id, (err, result) => {
         if (err) defer.reject(err);
         else defer.resolve(result);
     });
