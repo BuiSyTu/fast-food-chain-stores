@@ -66,6 +66,33 @@ router.get('/bill/:id', (req, res, next) => {
         })
 })
 
+
+// Hoa don
+
+// tat ca hoa don
+router.get('/allbills', (req, res, next) => {
+    bill_md.getAllBills()
+        .then(bills => {
+            res.json({
+                data: bills
+            });
+        })
+})
+
+
+// hoa don theo ma hoa don : b_id
+router.get('/bill/:id', (req, res, next) => {
+    let id = req.params.id;
+    let data = {};
+    bill_md.getBillById(id)
+        .then(bills => {
+            data = bills[0];
+            res.json({
+                data: data
+            });
+        })
+})
+
 router.get('/', function (req, res, next) {
     res.render("admin/index")
 })
