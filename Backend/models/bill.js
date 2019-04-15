@@ -5,7 +5,7 @@ const connection = database.getConnection();
 
 const getAllBills = () => {
     let defer = q.defer();
-    let sql = "SELECT * FROM bills";
+    let sql = "SELECT * FROM bills AS B, accounts AS A WHERE B.customer_id = A.a_id";
     connection.query(sql, (err, result) => {
         if (err) defer.reject(err);
         else defer.resolve(result);

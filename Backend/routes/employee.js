@@ -2,12 +2,11 @@ var express = require('express');
 var router = express.Router();
 var bill_md = require('../models/bill');
 var bill_detail_md = require('../models/bill_detail');
+var user_md = require('../models/user');
 
-router.get('/', (req, res) => {
-    var id = req.body.id;
-    console.log(id);
-    bill_md.getBillById(id).then(msg => {
-        return res.jsonp(msg);
+router.get('/', (req, res) => { 
+    bill_md.getAllBills().then(data => {
+        res.render('employee/index', {data: data});
     }).catch(err => {
         console.log(err);
     });
