@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
   },
   "dependencies": {
     "cookie-parser": "~1.4.3",
@@ -16,5 +17,8 @@
     "mysql": "^2.16.0",
     "q": "^1.5.1",
     "save": "^2.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
   }
 }
