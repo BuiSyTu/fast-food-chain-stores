@@ -21,6 +21,7 @@ function getAllFoods(){
 
         if (indexOfFood == -1){
            var data = {
+             f_id: foodsData[i].f_id,
              f_name: foodsData[i].f_name,
              f_price: foodsData[i].f_price,
              f_url: foodsData[i].f_url,

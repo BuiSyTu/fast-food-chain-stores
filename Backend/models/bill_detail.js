@@ -70,11 +70,25 @@ const deleteAllItemByBillId = b_id => {
     return defer.promise;
 }
 
+function getAllBillByUserId(userId){
+  var defer = q.defer();
+
+  var query = connection.query('SELECT * FROM bills, stores, bill_detail, foods, types WHERE bills.s_id = stores.s_id AND bill_detail.f_id=foods.f_id AND bills.b_id=bill_detail.b_id AND foods.t_id=types.t_id AND customer_id = ? ORDER BY bills.b_created_at DESC', [userId], function(err, bills){
+    if(err){
+      defer.reject(err);
+    } else{
+      defer.resolve(bills);
+    }
+  });
+  return defer.promise;
+}
+
 module.exports = {
     getAllItemByBillId: getAllItemByBillId,
     addItem: addItem,
     deleteItem: deleteItem,
     increaseQuantity: increaseQuantity,
     decreaseQuantity: decreaseQuantity,
-    deleteAllItemByBillId: deleteAllItemByBillId
+    deleteAllItemByBillId: deleteAllItemByBillId,
+    getAllBillByUserId: getAllBillByUserId
 }

@@ -32,11 +32,11 @@ function addFavorite(params){
   return false;
 }
 
-function deleteFavorite(id){
-  if (id){
+function deleteFavorite(f_id, a_id){
+  if (f_id){
     var defer = q.defer();
 
-    var query = conn.query('DELETE FROM favourites WHERE fv_id = ?', [id], function(err, result){
+    var query = conn.query('DELETE FROM favourites WHERE f_id = ? AND a_id=?', [f_id, a_id], function(err, result){
       if(err){
         defer.reject(err);
       } else{

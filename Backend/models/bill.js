@@ -53,10 +53,23 @@ const updateBill = (b_id, new_bill) => {
     return defer.promise;
 }
 
+function updateStatusBill(params){
+
+  var defer = q.defer();
+  var query = connection.query('UPDATE bills SET b_status = ? WHERE b_id = ?', [params.b_status, params.b_id], function(err, result){
+    if(err){
+      defer.reject(err);
+    } else{
+      defer.resolve(result);
+    }
+  });
+  return defer.promise;
+}
 module.exports = {
     getAllBills: getAllBills,
     getBillById: getBillById,
     addBill: addBill,
     deleteBill: deleteBill,
-    updateBill: updateBill
+    updateBill: updateBill,
+    updateStatusBill: updateStatusBill
 }

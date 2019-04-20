@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<title>Hello, world!</title>
+</head>
+<body>
+	<div class="container-fluid h-100">
+		<div class="row h-100">
+			<aside class="col-12 col-md-2 p-0 bg-dark sticky-top">
+				<nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start py-2">
+					<div class="collapse navbar-collapse">
+						<ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+							<li class="nav-item">
+								<a class="nav-link pl-0 text-nowrap" href="/users"><i class="fa fa-bullseye fa-2x"></i> <span class="font-weight-bold">Brand</span></a>
+							</li>
+							<br>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="/users"><i class="fa fa-home fa-2x"></i> <span class="d-none d-md-inline">Trang chủ</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="/users/previousOrder"><i class="fa fa-clock-o fa-2x"></i> <span class="d-none d-md-inline">Đơn hàng của tôi</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="/users/favoriteFood"><i class="fa fa-heart fa-2x"></i> <span class="d-none d-md-inline">Thực đơn yêu thích</span></a>
+							</li>
+							<br>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="#"><i class="fa fa-sign-out fa-2x"></i> <span class="d-none d-md-inline">Đăng xuất</span></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</aside>
+			<main class="col bg-faded py-3"  style="min-height: 650px">
+				<div class="content container">
+					<div class="greeting m-5">
+						<h2 class="text-center font-weight-normal">Thanh toán</h2>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-6">
+							<div class="progress mb-5">
+								<div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 order-md-last">
+							<div id="bill">
+								<div class="store-id d-none" storeid="<%= data.storeId%>">
+								</div>
+								<h5>Tổng đơn hàng</h5>
+								<table class="table border">
+									<tbody>
+										<% for(var i = 0; i < data.foodId.length; i++) {%>
+											<tr class="food" foodid="<%= data.foodId[i]%>">
+												<td>
+													<span class="order_qty_element"><%= data.qty[i]%></span> <span class="order_name_element"><%= data.foodName[i]%></span>
+													<br>
+													<span class="order_type_element"><%= data.typeName[i]%></span>, <span class="order_size_element"><%= data.size[i]%></span>
+												</td>
+												<td class="align-middle order_price_element"><%= data.price[i]%></td>
+												<td class="align-middle"></td>
+											</tr>
+										<%}%>
+										<tr>
+											<td class="text-success">Tổng cộng</td>
+											<td class="text-success total_order"><%= data.totalOrder%></td>
+											<td></td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="float-right mb-3">
+									<button type="button" class="btn btn-outline-warning" id="editOrder"><i class="fa fa-pencil"></i>Sửa đơn</button>
+									<button type="button" class="btn btn-primary" id="submitOrder"><i class="fa fa-check"></i>Nộp đơn hàng</button>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-md-6 offset-md-1">
+							<form id ="form" accept-charset="utf-8">
+								<h5 class="font-weight-normal">Thời gian bạn có thể đến cửa hàng?</h5>
+								<div class="form-row">
+									<div class="col-3">
+										<div class="form-check mt-1">
+											<input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked>
+											<label class="form-check-label" for="exampleRadios1">
+												Bây giờ
+											</label>
+										</div>
+									</div>
+									<div class="col">
+										<div class="form-row align-items-center">
+											<label for="exampleFormControlSelect1" class="col-auto mt-2">Lúc</label>
+											<select class="form-control col-3" id="exampleFormControlSelect1">
+												<option>Thời gian</option>
+												<option>6:00</option>
+												<option>6:30</option>
+												<option>7:00</option>
+												<option>7:30</option>
+												<option>8:00</option>
+												<option>8:30</option>
+												<option>9:00</option>
+												<option>9:30</option>
+												<option>10:00</option>
+												<option>10:30</option>
+												<option>11:00</option>
+												<option>11:30</option>
+												<option>12:00</option>
+												<option>12:30</option>
+												<option>13:00</option>
+												<option>13:30</option>
+												<option>14:00</option>
+												<option>14:30</option>
+												<option>15:00</option>
+												<option>15:30</option>
+												<option>16:00</option>
+												<option>16:30</option>
+												<option>17:00</option>
+												<option>17:30</option>
+												<option>18:00</option>
+												<option>18:30</option>
+												<option>19:00</option>
+												<option>19:30</option>
+												<option>20:00</option>
+												<option>20:30</option>
+												<option>21:00</option>
+												<option>21:30</option>
+												<option>22:00</option>
+												<option>22:30</option>
+
+											</select>
+										</div>
+									</div>
+								</div>
+								<hr>
+								<h5 class="font-weight-normal mt-3">Bạn đến cửa hàng bằng?</h5>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+									<label class="form-check-label" for="inlineRadio1">
+										<i class="fa fa-male fa-2x text-success"></i>
+										<span>Đi bộ</span>
+									</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+									<label class="form-check-label" for="inlineRadio2">
+										<i class="fa fa-bicycle fa-2x text-success"></i>
+										<span>Đi xe máy</span>
+									</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="option3">
+									<label class="form-check-label" for="inlineRadio3">
+										<i class="fa fa-car fa-2x text-success"></i>
+										<span>Đi ô tô</span>
+									</label>
+								</div>
+
+								<hr>
+								<h5 class="font-weight-normal mt-3">Bạn chọn phương thức thanh toán?<span class="text-danger"> *</span></h5>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="paymentMethod" id="inlineRadio4" value="1">
+									<label class="form-check-label" for="inlineRadio4">
+										<span>Trả bằng thẻ</span>
+									</label>
+								</div>
+								<div class="form-check form-check-inline">
+									<input class="form-check-input" type="radio" name="paymentMethod" id="inlineRadio5" value="0">
+									<label class="form-check-label" for="inlineRadio5">
+										<span>Trả khi đến cửa hàng</span>
+									</label>
+								</div>
+							</form>
+
+						</div>
+
+					</div>
+
+
+					<div class="footer">
+
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="/static/user/js/payment.js"></script>
+</body>
+</html>
