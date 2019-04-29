@@ -5,7 +5,7 @@ const connection = database.getConnection();
 
 const getAllItemByBillId = bill_id => {
     let defer = q.defer();
-    let sql = "SELECT f_id, bd_quantity FROM bill_detail WHERE b_id = ?";
+    let sql = "SELECT BD.f_id, BD.bd_quantity, F.f_price, F.f_size, F.f_name FROM bill_detail as BD, foods as F WHERE (BD.b_id = ? and BD.f_id = F.f_id)";
     connection.query(sql, bill_id, (err, result) => {
         if (err) defer.reject(err);
         else defer.resolve(result);
@@ -70,17 +70,17 @@ const deleteAllItemByBillId = b_id => {
     return defer.promise;
 }
 
-function getAllBillByUserId(userId){
-  var defer = q.defer();
+function getAllBillByUserId(userId) {
+    var defer = q.defer();
 
-  var query = connection.query('SELECT * FROM bills, stores, bill_detail, foods, types WHERE bills.s_id = stores.s_id AND bill_detail.f_id=foods.f_id AND bills.b_id=bill_detail.b_id AND foods.t_id=types.t_id AND customer_id = ? ORDER BY bills.b_created_at DESC', [userId], function(err, bills){
-    if(err){
-      defer.reject(err);
-    } else{
-      defer.resolve(bills);
-    }
-  });
-  return defer.promise;
+    var query = connection.query('SELECT * FROM bills, stores, bill_detail, foods, types WHERE bills.s_id = stores.s_id AND bill_detail.f_id=foods.f_id AND bills.b_id=bill_detail.b_id AND foods.t_id=types.t_id AND customer_id = ? ORDER BY bills.b_created_at DESC', [userId], function (err, bills) {
+        if (err) {
+            defer.reject(err);
+        } else {
+            defer.resolve(bills);
+        }
+    });
+    return defer.promise;
 }
 
 module.exports = {
