@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Management</title>
+    <title>Orders Management</title>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -66,10 +66,10 @@
                 <div class="row bg-light">
                     <% data.forEach(element => { %>
                        <div class="col-md-2 col-sm-6 mt-2 mb-2 d-flex flex-column align-items-center justify-content-center">
-                        <div class = "h5 text-center"><%= element.a_name %></div>
+                       <h5><%= element.a_name %></h5>
                         <div class= "text-center">5 phut truoc</div>
                         <!-- Button trigger modal -->
-                        <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target=<%= "#modelId" + element.b_id %>>
+                        <button id="<%= element.b_id %>" type="button" class="btn btn-info btn-lg bill" data-toggle="modal" data-target=<%= "#modelId" + element.b_id %>>
                             <div class="icon-list">
                                 <i class="fas fa-bars fa-3x"></i>
                             </div>
@@ -91,16 +91,19 @@
                                             <div class="h5 name">Tên khách hàng: <%= element.a_name %></div>
                                             <div class="h5 numberphone">SĐT: <%= element.a_phone %></div>
                                             <div class="h5 date-order">Ngày đặt hàng: <%= element.b_created_at %></div>
-                                            <div class="h5 payment-method">Phuong thuc thanh toan: <%= element.b_payment_method %></div>
+                                            <div class="h5 payment-method">Phương thức thanh toán: <%= element.b_payment_method %></div>
+                                            <div class="h5 status">Trạng thái đơn hàng: <%= element.b_status %></div>
                                         </div>
                                         <div class="table-item">
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th scope="col">#</th>
-                                                        <th scope="col">First</th>
-                                                        <th scope="col">Last</th>
-                                                        <th scope="col">Handle</th>
+                                                        <th scope="col">STT</th>
+                                                        <th scope="col">Tên món</th>
+                                                        <th scope="col">Kích cỡ</th>
+                                                        <th scope="col">Số lượng</th>
+                                                        <th scope="col">Đơn giá</th>
+                                                        <th scope="col">Thành tiền</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
@@ -109,18 +112,8 @@
                                                         <td>Mark</td>
                                                         <td>Otto</td>
                                                         <td>@mdo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">2</th>
-                                                        <td>Jacob</td>
-                                                        <td>Thornton</td>
-                                                        <td>@fat</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">3</th>
-                                                        <td>Larry</td>
-                                                        <td>the Bird</td>
-                                                        <td>@twitter</td>
+                                                        <td>@mdo</td>
+                                                        <td>@mdo</td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -155,6 +148,8 @@
     <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js"
         integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a"
         crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/static/employee/index.js"></script>
 </body>
 
 </html>
