@@ -5,7 +5,7 @@ const connection = database.getConnection();
 
 const getAllItemByBillId = bill_id => {
     let defer = q.defer();
-    let sql = "SELECT BD.f_id, BD.bd_quantity, F.f_price, F.f_size, F.f_name FROM bill_detail as BD, foods as F WHERE (BD.b_id = ? and BD.f_id = F.f_id)";
+    let sql = "SELECT F.f_name, F.f_size, BD.bd_quantity, F.f_price FROM bill_detail as BD, foods as F WHERE (BD.b_id = ? and BD.f_id = F.f_id)";
     connection.query(sql, bill_id, (err, result) => {
         if (err) defer.reject(err);
         else defer.resolve(result);
@@ -60,7 +60,6 @@ const decreaseQuantity = item => {
 }
 
 const deleteAllItemByBillId = b_id => {
-    let count = item.bd_quantity;
     let defer = q.defer();
     let sql = "DELETE FROM bill_detail WHERE b_id = ?";
     connection.query(sql, b_id, (err, result) => {

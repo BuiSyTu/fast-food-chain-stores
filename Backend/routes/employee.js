@@ -27,24 +27,20 @@ router.get('/order/:id', (req, res) => {
         return res.jsonp(msg);
     }).catch(err => {
         console.log(err);
+    });
+});
+
+router.delete('/delete/:id', (req, res) => {
+    var id = req.params.id;
+    bill_detail_md.deleteAllItemByBillId(id).then(msg1 => {
+        bill_md.deleteBill(id).then(msg2 => {
+            return res.jsonp(msg2);
+        }).catch(err => {
+            console.log(err);
+        });
+    }).catch(err => {
+        console.log(err);
     })
-})
-
-router.post('/add-bill', (req, res) => {
-    var param = req.body;
-    if (param) {
-        bill = {
-            customer_id: param.customer_id,
-            employee_id: param.employee_id,
-            s_id: param.s_id,
-            b_created_at: new Date(),
-            b_status: param.b_status,
-            b_hour: param.b_hour,
-            b_day_of_week: param.b_day_of_week,
-            b_payment_method: param.b_payment_method
-        }
-
-    }
 })
 
 module.exports = router;

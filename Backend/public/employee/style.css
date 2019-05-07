@@ -3,6 +3,9 @@ body{
     padding: 0;
 }
 
+.pointer{
+    cursor: pointer;
+}
 @media (min-width: 768px){
     .side-nav{
         height: 100vh;
@@ -11,10 +14,10 @@ body{
     .item{
         margin-left: -1rem;
     }
-    .nav-item:nth-child(2){
+    .nav-item:nth-child(1){
         position: relative;
     }
-    .nav-item:nth-child(3){
+    .nav-item:nth-child(2){
         position: absolute;
         top: 35rem;
     }
