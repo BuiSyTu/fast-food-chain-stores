@@ -53,7 +53,7 @@ const updateBill = (b_id, new_bill) => {
     return defer.promise;
 }
 
-function updateStatusBill(params) {
+const updateStatusBill = (params) => {
 
     var defer = q.defer();
     connection.query('UPDATE bills SET b_status = ? WHERE b_id = ?', [params.b_status, params.b_id], (err, result) => {

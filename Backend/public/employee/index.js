@@ -1,5 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    var deleteOrder = (id) => {
+        var b_id = parseInt(id);
+        axios.delete(`delete/+${b_id}`).then(data => {
+            location.reload();
+        }).catch(err => {
+            console.log(err);
+        });
+    }
+
     var btns = document.querySelectorAll(".bill");
     btns.forEach(btn => {
         var count = 0;
@@ -37,30 +46,6 @@ document.addEventListener('DOMContentLoaded', () => {
             count++;
         });
     });
-
-    // var modalConfirm = function (id, callback) {
-
-    //     $(`#${id}`).on("click", function () {
-    //         callback(true);
-    //         $("#modelId").modal('hide');
-    //     });
-    // };
-
-    var deleteOrder = (id) => {
-        var b_id = parseInt(id);
-        axios.delete(`delete/+${b_id}`).then(data => {
-            location.reload();
-        }).catch(err => {
-            console.log(err);
-        });
-    }
-
-    // var edits = document.getElementsByClassName('edit');
-    // for (var edit of edits) {
-    //     edit.addEventListener('click', () => {
-    //         console.log(edit);
-    //     })
-    // }
 
     var deletes = document.querySelectorAll(".delete");
     deletes.forEach(del => {
