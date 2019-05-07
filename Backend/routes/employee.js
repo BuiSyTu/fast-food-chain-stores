@@ -6,7 +6,7 @@ var user_md = require('../models/user');
 
 router.get('/list', (req, res) => {
     bill_md.getAllBills().then(data => {
-        res.render('employee/index', { data: data });
+        res.render('employee/index', { data: data, title: "Orders Management" });
     }).catch(err => {
         console.log(err);
     });
@@ -21,13 +21,9 @@ router.get('/detail/:id', (req, res) => {
     });
 });
 
-router.get('/order/:id', (req, res) => {
+router.get('/edit/:id', (req, res) => {
     var id = req.params.id;
-    bill_md.getBillById(id).then(msg => {
-        return res.jsonp(msg);
-    }).catch(err => {
-        console.log(err);
-    });
+    res.render('employee/update', { title: "Update Order" });
 });
 
 router.delete('/delete/:id', (req, res) => {

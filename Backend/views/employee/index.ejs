@@ -1,63 +1,14 @@
 <!doctype html>
 <html lang="en">
 
-<head>
-    <title>Orders Management</title>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/static/employee/style.css">
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css"
-        integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
-</head>
+<% include components/head.ejs %>
 
 <body>
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-1 bg-dark side-nav">
-                <nav class="navbar navbar-expand-md navbar-light navbar-dark">
-                    <!-- <a class="navbar-brand" href="#">Start Bootstrap</a> -->
-                    <button class="navbar-toggler d-lg-none" type="button" data-toggle="collapse"
-                        data-target="#collapsibleNavId" aria-controls="collapsibleNavId" aria-expanded="false"
-                        aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="collapsibleNavId">
-                        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 d-flex flex-column">
-                            <li class="nav-item active">
-                                <a class="nav-link mb-2 text-success item" href="/employee/list">List Order
-                                    <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link mb-2 item" href="/">Home</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+            <% include components/side-nav %>
             <div class="col-md-11 ">
-                <div class="row bg-light">
-                    <div class="col-md-4">
-                        <div class="h5">Quản Lý đơn hàng</div>
-                    </div>
-                    <div class="col-md-4"></div>
-                    <div class="col-md-4">
-                        <div class="btn-group username">
-                            <button type="button" class="btn btn-secondary dropdown-toggle bg-dark rounded-0"
-                                data-toggle="dropdown" data-display="static" aria-haspopup="true" aria-expanded="false">
-                                User name
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-lg-left">
-                                <button class="dropdown-item" type="button">Your Profile</button>
-                                <button class="dropdown-item" type="button">Log out</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <% include components/header %>
                 <div class="h6 mt-2">
                     Danh sách đơn hàng
                 </div>
@@ -74,9 +25,11 @@
                                 </div>
                             </button>
                             <div class="d-flex flex-column justify-content-around pointer">
-                                <div class="edit" id=<%= element.b_id %>>
-                                    <i class="far fa-edit fa-2x p-1 text-success"></i>                                  
-                                </div>
+                                <a href="/employee/edit/<%= element.b_id %>">
+                                    <div class="edit" id=<%= element.b_id %>>
+                                        <i class="far fa-edit fa-2x p-1 text-success"></i>                                  
+                                    </div>
+                                </a>
                                 <div>
                                     <i class="far fa-trash-alt fa-2x p-1 text-danger" data-toggle="modal" data-target=<%= "#del" + element.b_id %>></i>
                                     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" id=<%= "del" + element.b_id %>>
@@ -151,19 +104,7 @@
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
-    <script defer src="https://use.fontawesome.com/releases/v5.1.1/js/all.js"
-        integrity="sha384-BtvRZcyfv4r0x/phJt9Y9HhnN5ur1Z+kZbKVgzVBAlQZX4jvAuImlIz+bG7TS00a"
-        crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <% include components/script %>
     <script src="/static/employee/index.js"></script>
 </body>
 
