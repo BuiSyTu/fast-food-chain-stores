@@ -9,8 +9,68 @@
             <% include components/side-nav %>
             <div class="col-md-11 ">
                 <% include components/header %>
-                <div class="h6 mt-2">
+                <div class="h5 mt-2">
                     Cập nhật đơn hàng
+                </div>
+                <div class="main">
+                    <form class="border" method="post" action="/employee/edit">
+                        <div class="info p-4">
+                            <div class="h5">Mã đơn hàng: <%= bill[0].b_id %></div>
+                            <div class="h5">Tên khách hàng: <%= bill[0].a_name %></div>
+                            <div class="h5">Giới tính: <%= bill[0].a_gender %></div>
+                            <div class="h5">SĐT: <%= bill[0].a_phone %></div>
+                            <div class="h5">Ngày đặt hàng: <%= bill[0].b_created_at %></div>
+                            <div class="h5">Phương thức thanh toán: <%= bill[0].b_payment_method %></div>
+                            <div class="h5">Trạng thái đơn hàng: <%= bill[0].b_status %></div>
+                        </div>
+                        <div class="items">
+                            <div class="table-item">
+                                <% { %>
+                                    <% var total = 0 %>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Tên món</th>
+                                            <th scope="col">Kích cỡ</th>
+                                            <th scope="col">Số lượng</th>
+                                            <th scope="col">Đơn giá</th>
+                                            <th scope="col">Thành tiền</th>
+                                            <th scope="col">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% bill_detail.map((item, index) => { %>
+                                            <% var sum = item.bd_quantity * item.f_price %>
+                                        <tr>
+                                            <td><%= index + 1 %></td>
+                                            <td><%= item.f_name %></td>
+                                            <td><%= item.f_size %></td>
+                                            <td class= "d-flex">
+                                                <div class="quantity mr-2"><%= item.bd_quantity %></div>
+                                                <div class="sub">
+                                                    <i class="fas fa-minus-circle fa-2x p-1 text-danger"></i>
+                                                </div>
+                                                <div class="plus">
+                                                    <i class="fas fa-plus-circle fa-2x p-1 text-success"></i>
+                                                </div>
+                                            </td>
+                                            <td class="price"><%= item.f_price + "    VNĐ"%></td>
+                                            <td class="sum" id="<%= index +1 %>"><%= sum + "    VNĐ"%></td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger">Xóa</button>
+                                                <button type="button" class="btn btn-primary">Cập nhật</button>
+                                            </td>                                         
+                                        </tr>
+                                            <% total += sum %>
+                                        <% }); %>
+                                    </tbody>
+                                </table>
+                                <div class="h5 ml-4">Tổng tiền:    <%= total + "    VNĐ"%></div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

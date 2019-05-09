@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 var bill_md = require('../models/bill');
 var bill_detail_md = require('../models/bill_detail');
-var user_md = require('../models/user');
 
 router.get('/list', (req, res) => {
     bill_md.getAllBills().then(data => {
@@ -21,9 +20,20 @@ router.get('/detail/:id', (req, res) => {
     });
 });
 
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', async (req, res) => {
     var id = req.params.id;
-    res.render('employee/update', { title: "Update Order" });
+    try {
+        var bill = await bill_md.getBillById(id);
+    } catch (error) {
+        console.log(error);
+    }
+    try {
+        var bill_detail = await bill_detail_md.getAllItemByBillId(id);
+    } catch (error) {
+        console.log(error);
+    }
+    console.log(bill_detail);
+    res.render('employee/update', { title: "Update Order", bill, bill_detail });
 });
 
 router.delete('/delete/:id', (req, res) => {

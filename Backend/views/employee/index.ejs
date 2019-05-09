@@ -9,7 +9,7 @@
             <% include components/side-nav %>
             <div class="col-md-11 ">
                 <% include components/header %>
-                <div class="h6 mt-2">
+                <div class="h5 mt-2">
                     Danh sách đơn hàng
                 </div>
                 <div class="row bg-light">
@@ -66,7 +66,9 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class="info-order">
+                                            <div class="h5">Mã hóa đơn: <%= element.b_id %></div>
                                             <div class="h5 name">Tên khách hàng: <%= element.a_name %></div>
+                                            <div class="h5">Giới tính: <%= element.a_gender %></div>
                                             <div class="h5 numberphone">SĐT: <%= element.a_phone %></div>
                                             <div class="h5 date-order">Ngày đặt hàng: <%= element.b_created_at %></div>
                                             <div class="h5 payment-method">Phương thức thanh toán: <%= element.b_payment_method %></div>
