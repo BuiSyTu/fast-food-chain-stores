@@ -1,6 +1,3 @@
 document.addEventListener('DOMContentLoaded', () => {
-    var edits = document.querySelectorAll('edit');
-    edits.forEach(edit => {
-
-    });
+    //Dùng luôn js trong file ejs
 });

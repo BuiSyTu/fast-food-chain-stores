@@ -30,14 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         tr.appendChild(td);
                     }
                     var td_sum = document.createElement('td');
-                    td_sum.innerHTML = sum + ' VND';
+                    td_sum.innerHTML = sum;
                     tr.appendChild(td_sum);
                     tbody.appendChild(tr);
                     t += sum;
                 });
                 var table = document.getElementById('table' + b_id);
                 var total = document.createElement('h5');
-                total.innerHTML = "Tổng tiền:    " + t + ' VND';
+                total.innerHTML = "Tổng tiền:    " + t + '    VND';
                 table.appendChild(total);
             }).catch(err => {
                 console.log(err);
