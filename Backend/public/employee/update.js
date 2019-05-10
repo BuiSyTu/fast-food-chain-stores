@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
     var subs = document.querySelectorAll('.sub');
     var pluses = document.querySelectorAll('.plus');
     var alert = document.getElementById('alert');
+    var updates = document.querySelectorAll('.update');
+    var deletes = document.querySelectorAll('.delete');
 
     subs.forEach(sub => {
         sub.addEventListener('click', () => {
@@ -48,5 +50,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    updates.forEach(update => {
+        update.addEventListener('click', () => {
+            var quantity = document.getElementById('quantity' + update.id).innerHTML;
+            axios({
+                method: 'put',
+                url: '/employee/update',
+                data: {
+                    id: update.id,
+                    quantity: quantity
+                }
+            }).then(data => {
+                alert.classList.add('alert-success');
+                alert.innerHTML = 'Cập nhật thành công!';
+                setTimeout(() => {
+                    alert.innerHTML = '';
+                    alert.classList.remove('alert-success');
+                }, 2000);
+            }).catch(err => {
+                console.log(err);
+            });
+        });
+    });
+
+    deletes.forEach(del => {
+        del.addEventListener('click', () => {
+            var item = document.getElementById('item' + del.id);
+            axios({
+                method: 'delete',
+                url: '/employee/delete-item',
+                data: {
+                    id: del.id,
+                }
+            }).then(data => {
+                $("#del" + del.id).modal("hide");
+                location.reload();
+                // alert.classList.add('alert-success');
+                // alert.innerHTML = 'Xóa thành công!';
+                // setTimeout(() => {
+                //     alert.innerHTML = '';
+                //     alert.classList.remove('alert-success');
+                // }, 2000);
+            }).catch(err => {
+                console.log(err);
+            })
+        });
+    });
+    // Code lai react khi xoa phan tu trong index
 
 });

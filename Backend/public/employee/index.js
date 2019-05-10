@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     var deleteOrder = (id) => {
         var b_id = parseInt(id);
-        axios.delete(`delete/+${b_id}`).then(data => {
+        axios.delete(`delete/${b_id}`).then(data => {
             location.reload();
         }).catch(err => {
             console.log(err);

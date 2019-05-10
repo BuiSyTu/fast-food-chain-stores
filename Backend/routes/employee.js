@@ -35,6 +35,25 @@ router.get('/edit/:id', async (req, res) => {
     res.render('employee/update', { title: "Update Order", bill, bill_detail });
 });
 
+router.put('/update', (req, res) => {
+    var id = req.body.id;
+    var quantity = req.body.quantity;
+    bill_detail_md.updateQuantity(id, quantity).then(data => {
+        return res.jsonp(data);
+    }).catch(err => {
+        console.log(err);
+    });
+});
+
+router.delete('/delete-item', (req, res) => {
+    var id = req.body.id;
+    bill_detail_md.deleteItem(id).then(data => {
+        return res.jsonp(data);
+    }).catch(err => {
+        console.log(err);
+    });
+});
+
 router.delete('/delete/:id', (req, res) => {
     var id = req.params.id;
     bill_detail_md.deleteAllItemByBillId(id).then(msg1 => {
@@ -46,6 +65,6 @@ router.delete('/delete/:id', (req, res) => {
     }).catch(err => {
         console.log(err);
     })
-})
+});
 
 module.exports = router;
