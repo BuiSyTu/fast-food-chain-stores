@@ -25,3 +25,7 @@ body{
         margin-left: 12rem;
     }
 }
+
+.unselect{
+    -webkit-user-select: none;
+}

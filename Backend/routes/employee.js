@@ -32,7 +32,6 @@ router.get('/edit/:id', async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-    console.log(bill_detail);
     res.render('employee/update', { title: "Update Order", bill, bill_detail });
 });
 
