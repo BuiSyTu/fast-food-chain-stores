@@ -5,7 +5,7 @@ const connection = database.getConnection();
 
 const getAllItemByBillId = bill_id => {
     let defer = q.defer();
-    let sql = "SELECT F.f_name, F.f_size, BD.bd_quantity, F.f_price FROM bill_detail as BD, foods as F WHERE (BD.b_id = ? and BD.f_id = F.f_id)";
+    let sql = "SELECT F.f_name, F.f_size, BD.bd_quantity, F.f_price, BD.bd_id FROM bill_detail as BD, foods as F WHERE (BD.b_id = ? and BD.f_id = F.f_id)";
     connection.query(sql, bill_id, (err, result) => {
         if (err) defer.reject(err);
         else defer.resolve(result);

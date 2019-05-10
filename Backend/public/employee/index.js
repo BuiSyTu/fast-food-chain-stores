@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     th.innerHTML = index + 1;
                     tr.appendChild(th);
                     var sum = item.bd_quantity * item.f_price;
+                    delete item.bd_id;
                     for (var key in item) {
                         var td = document.createElement('td');
                         td.innerHTML = item[key];
