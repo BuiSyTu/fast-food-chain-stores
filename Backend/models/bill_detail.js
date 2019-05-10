@@ -23,40 +23,24 @@ const addItem = item => {
     return defer.promise;
 }
 
-const deleteItem = item => {
+const deleteItem = id => {
     let defer = q.defer();
-    let sql = "DELETE FROM bill_detail WHERE (b_id = ?) and (f_id = ?)";
-    connection.query(sql, [item.b_id, item.f_id], (err, result) => {
+    let sql = "DELETE FROM bill_detail WHERE bd_id = ?";
+    connection.query(sql, id, (err, result) => {
         if (err) defer.reject(err);
         else defer.resolve(result);
     });
     return defer.promise;
 }
 
-const increaseQuantity = item => {
+const updateQuantity = (id, quantity) => {
     let defer = q.defer();
-    let count = item.bd_quantity;
-    let sql = "UPDATE bill_detail SET bd_quantity = ?";
-    connection.query(sql, count++, (err, result) => {
+    let sql = "UPDATE bill_detail SET bd_quantity = ? WHERE bd_id = ?";
+    connection.query(sql, [quantity, id], (err, result) => {
         if (err) defer.reject(err);
         else defer.resolve(result);
     });
     return defer.promise;
-}
-
-const decreaseQuantity = item => {
-    let count = item.bd_quantity;
-    if (count > 1) {
-        let defer = q.defer();
-        let sql = "UPDATE bill_detail SET bd_quantity = ?";
-        connection.query(sql, count--, (err, result) => {
-            if (err) defer.reject(err);
-            else defer.resolve(result);
-        });
-        return defer.promise;
-    } else {
-        console.log("Khong the giam them !");
-    }
 }
 
 const deleteAllItemByBillId = b_id => {
@@ -86,8 +70,7 @@ module.exports = {
     getAllItemByBillId: getAllItemByBillId,
     addItem: addItem,
     deleteItem: deleteItem,
-    increaseQuantity: increaseQuantity,
-    decreaseQuantity: decreaseQuantity,
+    updateQuantity: updateQuantity,
     deleteAllItemByBillId: deleteAllItemByBillId,
     getAllBillByUserId: getAllBillByUserId
 }

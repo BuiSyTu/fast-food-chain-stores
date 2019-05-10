@@ -43,7 +43,7 @@
                                     <tbody>
                                         <% bill_detail.map((item, index) => { %>
                                             <% var sum = item.bd_quantity * item.f_price %>
-                                        <tr class="unselect">
+                                        <tr class="unselect" id=<%= "item" + item.bd_id %>>
                                             <td><%= index + 1 %></td>
                                             <td><%= item.f_name %></td>
                                             <td><%= item.f_size %></td>
@@ -59,8 +59,25 @@
                                             <td class="price" id=<%= "price" + item.bd_id %>><%= item.f_price + " VNĐ"%></td>
                                             <td class="sum" id=<%= "sum" + item.bd_id %>><%= sum + " VNĐ"%></td>
                                             <td>
-                                                <button type="button" class="btn btn-danger">Xóa</button>
-                                                <button type="button" class="btn btn-primary">Cập nhật</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target=<%= "#del" + item.bd_id %>>Xóa</button>
+                                                <button type="button" class="btn btn-primary update" id=<%= item.bd_id %>>Cập nhật</button>
+                                                <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" id=<%= "del" + item.bd_id %>>
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <div class="text-center w-100">
+                                                                    <i class="fas fa-exclamation-circle text-warning fa-4x mb-4"></i>
+                                                                    <h4>Bạn có chắc ?</h4>
+                                                                    <small>Bạn sẽ không thể quay lại thao tác này</small>
+                                                                </div>                                                    
+                                                            </div>
+                                                            <div class="modal-footer justify-content-center">
+                                                                <button type="button" class="btn btn-primary delete" id =<%= item.bd_id %>>Đồng ý, xóa nó</button>
+                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Quay lại</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </td>                                         
                                         </tr>
                                             <% total += sum %>
