@@ -24,23 +24,23 @@
                     <a href="/signin" class="float-right btn btn-outline-primary">Đăng nhập</a>
                     <h4 class="card-title mb-4 mt-1">Đăng ký</h4>
 
-                    <form name="myform">
+                    <form name="myform" method="POST" action="/signup">
 
                         <div class="form-group">
-                            <label for="myName">Họ Tên<span class="req"> *</span> </label>
-                            <input id="myName" name="myName" class="form-control" placeholder="Nhập họ tên" type="text"
+                            <label for="a_name">Họ Tên<span class="req"> *</span> </label>
+                            <input id="a_name" name="a_name" class="form-control" placeholder="Nhập họ tên" type="text"
                                 required>
                             <span id="error_name" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="dob">Ngày sinh<span class="req"> *</span> </label>
-                            <input type="date" name="dob" id="dob" class="form-control" required>
+                            <label for="a_dob">Ngày sinh<span class="req"> *</span> </label>
+                            <input type="date" name="a_dob" id="a_dob" class="form-control" required>
                             <span id="error_dob" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label for="gender">Giới tính</label>
-                            <select name="gender" id="gender" class="form-control">
+                            <label for="a_gender">Giới tính</label>
+                            <select name="a_gender" id="a_gender" class="form-control">
                                 <option selected>Nam</option>
                                 <option>Nữ</option>
                                 <option>Khác</option>
@@ -48,34 +48,34 @@
                             <span id="error_gender" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label for="address">Địa chỉ</label>
-                            <input id="address" name="address" placeholder="Nhập địa chỉ" class="form-control"
+                            <label for="a_address">Địa chỉ</label>
+                            <input id="a_address" name="a_address" placeholder="Nhập địa chỉ" class="form-control"
                                 type="text">
                         </div>
                         <div class="form-group">
-                            <label for="phone">Phone Number<span class="req"> *</span> </label>
-                            <input type="number" id="phone" name="phone" placeholder="Nhập số điện thoại"
+                            <label for="a_phone">Phone Number<span class="req"> *</span> </label>
+                            <input type="number" id="a_phone" name="a_phone" placeholder="Nhập số điện thoại"
                                 class="form-control" required>
                             <span id="error_phone" class="text-danger"></span>
                         </div>
 
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" name="email" id="email" class="form-control"
+                            <label for="a_email">Email</label>
+                            <input type="email" name="a_email" id="a_email" class="form-control"
                                 placeholder="Nhập email của bạn" aria-describedby="email">
                         </div>
 
                         <div class="form-group">
-                            <label for="username">User name<span class="req"> *</span> </label>
-                            <input class="form-control" type="text" name="username" id="txt" onkeyup="Validate(this)"
+                            <label for="a_username">User name<span class="req"> *</span> </label>
+                            <input class="form-control" type="text" name="a_username" id="a_username" onkeyup="Validate(this)"
                                 minlength="6" placeholder="Tối thiểu 6 ký tự" required />
                             <div id="errLast"></div>
                         </div>
 
                         <div class="form-group">
-                            <label for="password">Password<span class="req"> *</span> </label>
-                            <input required name="password" placeholder="Nhập mật khẩu" type="password"
-                                class="form-control inputpass" minlength="4" maxlength="16" id="pass1" /> </p>
+                            <label for="a_password">Password<span class="req"> *</span> </label>
+                            <input required name="a_password" placeholder="Nhập mật khẩu" type="password"
+                                class="form-control inputpass" minlength="4" maxlength="16" id="a_password" /> </p>
 
                             <label for="password">Nhập lại mật khẩu<span class="req"> *</span> </label>
                             <input required name="password" type="password" class="form-control inputpass" minlength="4"

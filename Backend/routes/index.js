@@ -18,7 +18,6 @@ router.get('/signup', (req, res) => {
 
 router.post('/signup', (req, res) => {
     let data = req.body;
-
     // chua test auto increment lai
     // user_md.getMaxUserId().then(users => {
     //     data.a_id = users[0].ID_MAX + 1;
@@ -27,16 +26,19 @@ router.post('/signup', (req, res) => {
     let account = {
         a_username: data.a_username,
         a_password: data.a_password,
-        a_role: 0, // role la 0, 1, 2 3 tuong ung voi nhung quyen nao
+        a_role: "user", // role la 0, 1, 2 3 tuong ung voi nhung quyen nao
         a_name: data.a_name,
-        a_phone: data.a_phone,
+        a_dob: data.a_dob,
         a_gender: data.a_gender,
+        a_address: data.a_address,
+        a_phone: data.a_phone,
         a_email: data.a_email,
         a_created_at: dateFormat(new Date(), "yyyy-mm-dd")
     }
 
     user_md.addUser(account).then(result => {
-        console.log(dateFormat(new Date(), "yyyy-mm-dd"));
+        // console.log(dateFormat(new Date(), "yyyy-mm-dd"));
+        res.redirect("/signin");
         console.log("Sign up success");
     }).catch(err => {
         console.log(err);
@@ -48,5 +50,20 @@ router.get('/signin', (req, res) => {
         data: {}
     });
 });
+
+router.post('/signin', (req, res)=>{
+    let data = req.body;
+    user_md.getUserByUsername(data.a_username)
+    .then(users=>{
+        let user = users[0];
+        if(user.a_password == data.a_password){
+            console.log(user);
+            res.render("index",{data: user});
+            console.log("Sign in success");
+        }
+    }).catch(err=>{
+        console.log(err);
+    })
+})
 
 module.exports = router;
