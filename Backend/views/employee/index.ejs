@@ -7,7 +7,7 @@
     <div class="container-fluid">
         <div class="row">
             <% include components/side-nav %>
-            <div class="col-md-11 unselect">
+            <div class="col-md-10 unselect">
                 <% include components/header %>
 
                 <% include components/alert %>
@@ -18,8 +18,8 @@
                 <div class="row bg-light">
                     <% data.forEach(element => { %>
                        <div class="col-md-2 col-sm-6 mt-2 mb-2 d-flex flex-column align-items-center justify-content-center" id=<%= "order" + element.b_id %>>
-                       <h5><%= element.a_name %></h5>
-                        <div class= "text-center text-info">5 phut truoc</div>
+                       <h5 class="text-info"><%= element.b_id + ". " + element.a_name %></h5>
+                        <div class= "text-center h6"><%= element.moment_date %></div>
                         <div class="d-flex">
                             <!-- Button trigger modal -->
                             <button id="<%= element.b_id %>" type="button" class="btn btn-info btn-lg bill" data-toggle="modal" data-target=<%= "#modelId" + element.b_id %>>
@@ -110,7 +110,7 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <% include components/script %>
-    <script src="/static/employee/index.js"></script>
+    <script src="/static/employee/js/index.js"></script>
 </body>
 
 </html>
