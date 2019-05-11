@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 const user_md = require('../models/user');
 const bill_md = require('../models/bill');
-
+const thong_ke_md = require('../models/thong_ke');
 /* GET home page. */
 router.get('/allusers', function (req, res, next) {
     let data = {};
@@ -94,7 +94,14 @@ router.get('/bill/:id', (req, res, next) => {
 })
 
 router.get('/', function (req, res, next) {
-    res.render("admin/index")
+    
+    thong_ke_md.countFavouriteFoodWithFoodId()
+    .then(FavouriteFoods=>{
+        let data = FavouriteFoods;
+        // console.log(data);
+        // console.log(data[1].f_id + " so luong : "+ data[1].count);
+    })
+    res.render("admin/index");
 })
 
 module.exports = router;
