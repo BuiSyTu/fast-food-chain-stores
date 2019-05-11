@@ -94,14 +94,35 @@ router.get('/bill/:id', (req, res, next) => {
 })
 
 router.get('/', function (req, res, next) {
-    
+
     thong_ke_md.countFavouriteFoodWithFoodId()
-    .then(FavouriteFoods=>{
-        let data = FavouriteFoods;
-        // console.log(data);
-        // console.log(data[1].f_id + " so luong : "+ data[1].count);
-    })
+        .then(FavouriteFoods => {
+            let data = FavouriteFoods;
+            // console.log(data);
+            // console.log(data[1].f_id + " so luong : "+ data[1].count);
+        })
     res.render("admin/index");
+})
+
+// test gg chart
+router.get('/thongke', (req, res) => {
+    thong_ke_md.countFavouriteFoodWithFoodId()
+        .then(result => {
+            let FavouriteFoods = Object.keys(result).map(key=> [result[key].name, result[key].count]);
+            // console.log(FavouriteFoods);
+            // let FavouriteFoods = [];
+            // for(var i = 0; i< result.length; i++){
+            //     FavouriteFoods.push([result[i].name, result[i].count]);
+
+            // }
+            // var resultJson = JSON.stringify(result);
+            // var FavouriteFoods = JSON.stringify(resultArray); 
+            res.render("admin/chart", {
+                FavouriteFoods
+            });
+        }).catch(err => {
+            console.log(err);
+        })
 })
 
 module.exports = router;
