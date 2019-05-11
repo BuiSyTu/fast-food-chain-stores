@@ -2,13 +2,22 @@ var express = require('express');
 var router = express.Router();
 var bill_md = require('../models/bill');
 var bill_detail_md = require('../models/bill_detail');
+var moment = require("moment");
 
 router.get('/list', (req, res) => {
     bill_md.getAllBills().then(data => {
+        data.forEach(element => {
+            var created_at = element.b_created_at;
+            element.moment_date = moment(created_at).calendar();
+        });
         res.render('employee/index', { data: data, title: "Orders Management" });
     }).catch(err => {
         console.log(err);
     });
+});
+
+router.get('/profile', (req, res) => {
+    res.render('employee/profile', { title: "Your Profile" });
 });
 
 router.get('/detail/:id', (req, res) => {
