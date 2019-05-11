@@ -75,7 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     deletes.forEach(del => {
         del.addEventListener('click', () => {
-            var item = document.getElementById('item' + del.id);
             axios({
                 method: 'delete',
                 url: '/employee/delete-item',
@@ -85,17 +84,9 @@ document.addEventListener('DOMContentLoaded', () => {
             }).then(data => {
                 $("#del" + del.id).modal("hide");
                 location.reload();
-                // alert.classList.add('alert-success');
-                // alert.innerHTML = 'Xóa thành công!';
-                // setTimeout(() => {
-                //     alert.innerHTML = '';
-                //     alert.classList.remove('alert-success');
-                // }, 2000);
             }).catch(err => {
                 console.log(err);
-            })
+            });
         });
     });
-    // Code lai react khi xoa phan tu trong index
-
 });

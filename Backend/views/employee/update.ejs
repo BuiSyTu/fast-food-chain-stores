@@ -9,10 +9,12 @@
             <% include components/side-nav %>
             <div class="col-md-11 ">
                 <% include components/header %>
+                
+                <% include components/alert %>
+
                 <div class="h5 mt-2">
                     Cập nhật đơn hàng
                 </div>
-                <div id = "alert" role="alert" class="text-center alert fixed-top"></div>
                 <div class="main">
                     <div class="border">
                         <div class="info p-4 unselect">
@@ -21,8 +23,8 @@
                             <div class="h5">Giới tính: <%= bill[0].a_gender %></div>
                             <div class="h5">SĐT: <%= bill[0].a_phone %></div>
                             <div class="h5">Ngày đặt hàng: <%= bill[0].b_created_at %></div>
-                            <div class="h5">Phương thức thanh toán: <%= bill[0].b_payment_method %></div>
-                            <div class="h5">Trạng thái đơn hàng: <%= bill[0].b_status %></div>
+                            <div class="h5 payment-method">Phương thức thanh toán: <%= (bill[0].b_payment_method === 1) ? 'Bằng tiền mặt' : 'Bằng thẻ' %></div>
+                            <div class="h5 status">Trạng thái đơn hàng: <%= (bill[0].b_status ===1 ) ? 'Chưa thanh toán' : ((bill[0].b_status === 2) ? 'Đã bị hủy' : 'Đã thanh toán') %></div>
                         </div>
                         <div class="items">
                             <div class="table-item">

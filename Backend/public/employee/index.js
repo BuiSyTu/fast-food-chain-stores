@@ -1,9 +1,21 @@
 document.addEventListener('DOMContentLoaded', () => {
 
+    var alert = document.getElementById('alert');
+    var deletes = document.querySelectorAll(".delete");
+    var pays = document.querySelectorAll('.pay');
+
     var deleteOrder = (id) => {
         var b_id = parseInt(id);
         axios.delete(`delete/${b_id}`).then(data => {
-            location.reload();
+            var order = document.getElementById('order' + id);
+            $("#del" + id).modal("hide");
+            order.remove();
+            alert.classList.add('alert-success');
+            alert.innerHTML = 'Xóa thành công!';
+            setTimeout(() => {
+                alert.innerHTML = '';
+                alert.classList.remove('alert-success');
+            }, 2000);
         }).catch(err => {
             console.log(err);
         });
@@ -48,11 +60,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    var deletes = document.querySelectorAll(".delete");
     deletes.forEach(del => {
         del.addEventListener('click', () => {
             deleteOrder(del.id);
-            $("#del" + del.id).modal("hide");
+        });
+    });
+
+    pays.forEach(pay => {
+        pay.addEventListener('click', () => {
+            var bool = confirm("Bạn có chắc muốn thanh toán!");
+            if (bool) {
+                axios({
+                    method: 'put',
+                    url: '/employee/payment',
+                    data: {
+                        id: pay.id,
+                    }
+                }).then(data => {
+                    location.reload();
+                }).catch(err => {
+                    console.log(err);
+                });
+            }
         });
     });
 
