@@ -53,10 +53,10 @@ const updateBill = (b_id, new_bill) => {
     return defer.promise;
 }
 
-const updateStatusBill = (params) => {
+const updateBillStatus = (b_id, b_status) => {
 
     var defer = q.defer();
-    connection.query('UPDATE bills SET b_status = ? WHERE b_id = ?', [params.b_status, params.b_id], (err, result) => {
+    connection.query('UPDATE bills SET b_status = ? WHERE b_id = ?', [b_status, b_id], (err, result) => {
         if (err) {
             defer.reject(err);
         } else {
@@ -71,5 +71,5 @@ module.exports = {
     addBill: addBill,
     deleteBill: deleteBill,
     updateBill: updateBill,
-    updateStatusBill: updateStatusBill
+    updateBillStatus: updateBillStatus
 }

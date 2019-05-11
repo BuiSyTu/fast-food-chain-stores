@@ -54,6 +54,15 @@ router.delete('/delete-item', (req, res) => {
     });
 });
 
+router.put('/payment', (req, res) => {
+    var b_id = req.body.id;
+    bill_md.updateBillStatus(b_id, 3).then(data => {
+        return res.jsonp(data);
+    }).catch(err => {
+        console.log(err);
+    });
+});
+
 router.delete('/delete/:id', (req, res) => {
     var id = req.params.id;
     bill_detail_md.deleteAllItemByBillId(id).then(msg1 => {

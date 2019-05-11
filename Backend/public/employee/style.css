@@ -29,3 +29,8 @@ body{
 .unselect{
     -webkit-user-select: none;
 }
+
+.alert{
+    position: fixed;
+    top: 0;
+}
