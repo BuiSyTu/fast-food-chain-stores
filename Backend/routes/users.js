@@ -124,6 +124,7 @@ var params = JSON.parse(req.body.json);
   bill.b_day_of_week = bill.b_created_at.getDay();
   bill.b_week_of_year = weekNumber;
   bill.b_month_of_year = bill.b_created_at.getMonth()+1;
+  bill.b_year = today.getFullYear();
   bill.b_payment_method = params.paymentMethod;
 
   data = bill_md.addBill(bill);
