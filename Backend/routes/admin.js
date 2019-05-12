@@ -105,7 +105,7 @@ router.get('/', function (req, res, next) {
 })
 
 // test gg chart
-router.get('/thongke', (req, res) => {
+router.get('/favouritefoods', (req, res) => {
     thong_ke_md.countFavouriteFoodWithFoodId()
         .then(result => {
             let FavouriteFoods = Object.keys(result).map(key=> [result[key].name, result[key].count]);
@@ -117,9 +117,17 @@ router.get('/thongke', (req, res) => {
             // }
             // var resultJson = JSON.stringify(result);
             // var FavouriteFoods = JSON.stringify(resultArray); 
-            res.render("admin/chart", {
+            res.render("admin/favourtitefoodschart", {
                 FavouriteFoods
             });
+        }).catch(err => {
+            console.log(err);
+        })
+})
+router.get('/allbillsinweek', (req, res) => {
+    thong_ke_md.getAllBillInWeek()
+        .then(result => {
+            res.json({data: result});
         }).catch(err => {
             console.log(err);
         })

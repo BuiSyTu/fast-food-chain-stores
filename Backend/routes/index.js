@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var dateFormat = require('dateformat');
 var user_md = require('../models/user');
-
+var hash = require('../common/hash_password');
 /* GET home page. */
 router.get('/', function (req, res, next) {
     res.render('index', {
@@ -22,10 +22,10 @@ router.post('/signup', (req, res) => {
     // user_md.getMaxUserId().then(users => {
     //     data.a_id = users[0].ID_MAX + 1;
     // })
-
+    var hashPassword = hash.hashPassword(data.a_password);
     let account = {
         a_username: data.a_username,
-        a_password: data.a_password,
+        a_password: hashPassword,
         a_role: "user", // role la 0, 1, 2 3 tuong ung voi nhung quyen nao
         a_name: data.a_name,
         a_dob: data.a_dob,
@@ -56,7 +56,8 @@ router.post('/signin', (req, res)=>{
     user_md.getUserByUsername(data.a_username)
     .then(users=>{
         let user = users[0];
-        if(user.a_password == data.a_password){
+        let checkPassword = hash.comparePassword(data.a_password, user.a_password);
+        if(checkPassword){
             console.log(user);
             res.render("index",{data: user});
             console.log("Sign in success");
