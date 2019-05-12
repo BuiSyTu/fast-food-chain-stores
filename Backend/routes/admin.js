@@ -2,15 +2,19 @@ var express = require('express');
 var router = express.Router();
 const user_md = require('../models/user');
 const bill_md = require('../models/bill');
+const food_md = require('../models/foods');
 
 /* GET home page. */
 router.get('/allusers', function (req, res, next) {
     let data = {};
     user_md.getAllUsers()
         .then(users => {
-            res.json({
-                data: users
-            });
+            data = users;
+            // res.json({
+            //     data: data
+            // })
+            res.render("admin/allusers", { data: data });
+            console.log(data);
         })
 });
 
@@ -20,10 +24,10 @@ router.get('/user/:id', function (req, res, next) {
     user_md.getUserById(id)
         .then(users => {
             data = users[0];
-            console.log(data.a_row);
-            res.json({
-                data: data
-            })
+            res.render("admin/user", { data: data });
+            // res.json({
+            //     data: data
+            // })
         })
 })
 
@@ -65,6 +69,35 @@ router.get('/bill/:id', (req, res, next) => {
             });
         })
 })
+
+//get all foods
+router.get('/allfoods', (req, res, next) => {
+    let data = {};
+    food_md.getAllFoods()
+        .then(foods => {
+            data = foods;
+            // res.json({
+            //     data: data
+            // })
+            res.render("admin/allfoods", { data: foods });
+            console.log(data);
+        })
+})
+
+//get food by id: 
+router.get('/food/:id', (req, res, next) => {
+    let id = req.params.id;
+
+    food_md.getFoodById(id)
+        .then(foods => {
+            data = foods[0];
+            res.json({
+                data: data
+            });
+            console.log(data);
+        })
+})
+
 
 router.get('/', function (req, res, next) {
     res.render("admin/index")
