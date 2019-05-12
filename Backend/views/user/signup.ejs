@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Đăng Ký</title>
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.8/css/all.css">
+
+    <link rel="stylesheet" href="/static/user/stylesheets/signup.css">
+</head>
+
+<body>
+    <div class="row">
+        <div class="col-md-6 col-sm-12 col-lg-6 mx-auto">
+            <div class="card">
+
+                <div class="card-body">
+                    <a href="/signin" class="float-right btn btn-outline-primary">Đăng nhập</a>
+                    <h4 class="card-title mb-4 mt-1">Đăng ký</h4>
+
+                    <form name="myform" method="POST" action="/signup">
+
+                        <div class="form-group">
+                            <label for="a_name">Họ Tên<span class="req"> *</span> </label>
+                            <input id="a_name" name="a_name" class="form-control" placeholder="Nhập họ tên" type="text"
+                                required>
+                            <span id="error_name" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="a_dob">Ngày sinh<span class="req"> *</span> </label>
+                            <input type="date" name="a_dob" id="a_dob" class="form-control" required>
+                            <span id="error_dob" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="a_gender">Giới tính</label>
+                            <select name="a_gender" id="a_gender" class="form-control">
+                                <option selected>Nam</option>
+                                <option>Nữ</option>
+                                <option>Khác</option>
+                            </select>
+                            <span id="error_gender" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="a_address">Địa chỉ</label>
+                            <input id="a_address" name="a_address" placeholder="Nhập địa chỉ" class="form-control"
+                                type="text">
+                        </div>
+                        <div class="form-group">
+                            <label for="a_phone">Phone Number<span class="req"> *</span> </label>
+                            <input type="number" id="a_phone" name="a_phone" placeholder="Nhập số điện thoại"
+                                class="form-control" required>
+                            <span id="error_phone" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="a_email">Email</label>
+                            <input type="email" name="a_email" id="a_email" class="form-control"
+                                placeholder="Nhập email của bạn" aria-describedby="email">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="a_username">User name<span class="req"> *</span> </label>
+                            <input class="form-control" type="text" name="a_username" id="a_username" onkeyup="Validate(this)"
+                                minlength="6" placeholder="Tối thiểu 6 ký tự" required />
+                            <div id="errLast"></div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="a_password">Password<span class="req"> *</span> </label>
+                            <input required name="a_password" placeholder="Nhập mật khẩu" type="password"
+                                class="form-control inputpass" minlength="4" maxlength="16" id="a_password" /> </p>
+
+                            <label for="password">Nhập lại mật khẩu<span class="req"> *</span> </label>
+                            <input required name="password" type="password" class="form-control inputpass" minlength="4"
+                                maxlength="16" placeholder="Vui lòng nhập lại mật khẩu" id="pass2"
+                                onkeyup="checkPass(); return false;" />
+                            <span id="confirmMessage" class="confirmMessage"></span>
+                        </div>
+                        <div class="d-flex justify-content-center"><button id="signupButton" type="submit"
+                                value="signupButton" class="btn btn-primary ">Đăng ký</button></div>
+
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/user/js/signup.js"></script>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

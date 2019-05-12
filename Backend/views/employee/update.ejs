@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+
+<% include components/head %>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <% include components/side-nav %>
+            <div class="col-md-10">
+                <% include components/header %>
+
+                <% include components/alert %>
+
+                <div class="h5 mt-2">
+                    Cập nhật đơn hàng
+                </div>
+                <div class="main">
+                    <div class="border">
+                        <div class="info p-4 unselect">
+                            <div class="h5">Mã đơn hàng: <%= bill[0].b_id %></div>
+                            <div class="h5">Tên khách hàng: <%= bill[0].a_name %></div>
+                            <div class="h5">Giới tính: <%= bill[0].a_gender %></div>
+                            <div class="h5">SĐT: <%= bill[0].a_phone %></div>
+                            <div class="h5">Ngày đặt hàng: <%= bill[0].b_created_at %></div>
+                            <div class="h5 payment-method">Phương thức thanh toán: <%= (bill[0].b_payment_method === 1) ? 'Bằng tiền mặt' : 'Bằng thẻ' %></div>
+                            <div class="h5 status">Trạng thái đơn hàng: <%= (bill[0].b_status ===1 ) ? 'Chưa thanh toán' : ((bill[0].b_status === 2) ? 'Đã bị hủy' : 'Đã thanh toán') %></div>
+                        </div>
+                        <div class="items">
+                            <div class="table-item">
+                                <% { %>
+                                    <% var total = 0 %>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Tên món</th>
+                                            <th scope="col">Kích cỡ</th>
+                                            <th scope="col">Số lượng</th>
+                                            <th scope="col">Đơn giá</th>
+                                            <th scope="col">Thành tiền</th>
+                                            <th scope="col">Thao tác</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% bill_detail.map((item, index) => { %>
+                                            <% var sum = item.bd_quantity * item.f_price %>
+                                        <tr class="unselect" id=<%= "item" + item.bd_id %>>
+                                            <td><%= index + 1 %></td>
+                                            <td><%= item.f_name %></td>
+                                            <td><%= item.f_size %></td>
+                                            <td class= "d-flex">
+                                                <div class="quantity mr-2" id=<%= "quantity" + item.bd_id %>><%= item.bd_quantity %></div>
+                                                <div class="sub" id=<%= item.bd_id %>>
+                                                    <i class="fas fa-minus-circle fa-2x p-1 text-danger"></i>
+                                                </div>
+                                                <div class="plus" id=<%= item.bd_id %>>
+                                                    <i class="fas fa-plus-circle fa-2x p-1 text-success"></i>
+                                                </div>
+                                            </td>
+                                            <td class="price" id=<%= "price" + item.bd_id %>><%= item.f_price + " VNĐ"%></td>
+                                            <td class="sum" id=<%= "sum" + item.bd_id %>><%= sum + " VNĐ"%></td>
+                                            <td>
+                                                <button type="button" class="btn btn-danger" data-toggle="modal" data-target=<%= "#del" + item.bd_id %>>Xóa</button>
+                                                <button type="button" class="btn btn-primary update" id=<%= item.bd_id %>>Cập nhật</button>
+                                                <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" id=<%= "del" + item.bd_id %>>
+                                                    <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <div class="text-center w-100">
+                                                                    <i class="fas fa-exclamation-circle text-warning fa-4x mb-4"></i>
+                                                                    <h4>Bạn có chắc ?</h4>
+                                                                    <small>Bạn sẽ không thể quay lại thao tác này</small>
+                                                                </div>                                                    
+                                                            </div>
+                                                            <div class="modal-footer justify-content-center">
+                                                                <button type="button" class="btn btn-primary delete" id =<%= item.bd_id %>>Đồng ý, xóa nó</button>
+                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Quay lại</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </td>                                         
+                                        </tr>
+                                            <% total += sum %>
+                                        <% }); %>
+                                    </tbody>
+                                </table>                              
+                                <div class="h5 ml-4 unselect">
+                                    <div class="d-inline">Tổng tiền: </div>
+                                    <div class="d-inline" id="total"><%= total + " VNĐ"%></div>
+                                </div>
+                                <% } %>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <% include components/script %>
+    <script src="/static/employee/js/update.js"></script>
+</body>
+
+</html>
