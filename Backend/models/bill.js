@@ -65,11 +65,26 @@ const updateBillStatus = (b_id, b_status) => {
     });
     return defer.promise;
 }
+
+const updateDate = (b_id) => {
+
+    var defer = q.defer();
+    connection.query('UPDATE bills SET b_update_at = ? WHERE b_id = ?', [new Date(), b_id], (err, result) => {
+        if (err) {
+            defer.reject(err);
+        } else {
+            defer.resolve(result);
+        }
+    });
+    return defer.promise;
+}
+
 module.exports = {
     getAllBills: getAllBills,
     getBillById: getBillById,
     addBill: addBill,
     deleteBill: deleteBill,
     updateBill: updateBill,
-    updateBillStatus: updateBillStatus
+    updateBillStatus: updateBillStatus,
+    updateDate: updateDate
 }

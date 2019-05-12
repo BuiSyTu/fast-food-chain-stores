@@ -61,6 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     quantity: quantity
                 }
             }).then(data => {
+                document.getElementById('date').innerHTML = 'Ngày cập nhật: ' + moment(new Date()).format();
                 alert.classList.add('alert-success');
                 alert.innerHTML = 'Cập nhật thành công!';
                 setTimeout(() => {
