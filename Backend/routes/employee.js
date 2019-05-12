@@ -5,7 +5,8 @@ var bill_detail_md = require('../models/bill_detail');
 var moment = require("moment");
 
 router.get('/list', (req, res) => {
-    bill_md.getAllBills().then(data => {
+    var pageIndex = ((req.query.pageIndex > 0) ? req.query.pageIndex : 1) || 1;
+    bill_md.getAllBills(12, pageIndex).then(data => {
         data.forEach(element => {
             var created_at = element.b_created_at;
             element.moment_date = moment(created_at).calendar();

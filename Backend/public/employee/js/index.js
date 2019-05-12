@@ -84,5 +84,33 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+    var currentPage = parseInt((location.search).substring(11));
+    var pre = document.getElementById('pre');
+    if (currentPage > 1) {
+        pre.parentNode.classList.remove('disabled');
+        pre.addEventListener('click', () => {
+            pre.href = '/employee/list?pageIndex=' + (currentPage - 1);
+        });
+    } else {
+        pre.parentNode.classList.add('disabled');
+    }
+    var next = document.getElementById('next');
+    if (currentPage < 5) {
+        next.parentNode.classList.remove('disabled');
+        next.addEventListener('click', () => {
+            next.href = '/employee/list?pageIndex=' + (currentPage + 1);
+        });
+    } else {
+        next.parentNode.classList.add('disabled');
+    }
 
+    var pages = document.querySelectorAll('.page-link');
+    console.log(pages);
+    pages.forEach(page => {
+        if (page.id == currentPage) {
+            page.parentNode.classList.add('active');
+        } else {
+            page.parentNode.classList.remove('active');
+        }
+    });
 });
