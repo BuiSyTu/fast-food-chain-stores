@@ -5,7 +5,7 @@ const connection = database.getConnection();
 
 const getAllItemByBillId = bill_id => {
     let defer = q.defer();
-    let sql = "SELECT F.f_name, F.f_size, BD.bd_quantity, F.f_price, BD.bd_id FROM bill_detail as BD, foods as F WHERE (BD.b_id = ? and BD.f_id = F.f_id)";
+    let sql = "SELECT F.f_name, T.t_name, F.f_size, BD.bd_quantity, F.f_price, BD.bd_id FROM bill_detail as BD, foods as F, types as T WHERE (BD.b_id = ? and BD.f_id = F.f_id and F.t_id = T.t_id )";
     connection.query(sql, bill_id, (err, result) => {
         if (err) defer.reject(err);
         else defer.resolve(result);
@@ -17,6 +17,16 @@ const addItem = item => {
     let defer = q.defer();
     let sql = "INSERT INTO bill_detail SET ?";
     connection.query(sql, item, (err, result) => {
+        if (err) defer.reject(err);
+        else defer.resolve(result);
+    });
+    return defer.promise;
+}
+
+const getBillIdByBDId = bd_id => {
+    let defer = q.defer();
+    let sql = "SELECT b_id FROM bill_detail WHERE bd_id = ?";
+    connection.query(sql, bd_id, (err, result) => {
         if (err) defer.reject(err);
         else defer.resolve(result);
     });
@@ -72,5 +82,6 @@ module.exports = {
     deleteItem: deleteItem,
     updateQuantity: updateQuantity,
     deleteAllItemByBillId: deleteAllItemByBillId,
-    getAllBillByUserId: getAllBillByUserId
+    getAllBillByUserId: getAllBillByUserId,
+    getBillIdByBDId: getBillIdByBDId
 }

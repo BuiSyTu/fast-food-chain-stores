@@ -41,35 +41,75 @@ router.get('/edit/:id', async (req, res) => {
     } catch (error) {
         console.log(error);
     }
-    res.render('employee/update', { title: "Update Order", bill, bill_detail });
+    res.render('employee/update', { title: "Update Order", bill, bill_detail, moment });
 });
 
-router.put('/update', (req, res) => {
+router.put('/update', async (req, res) => {
     var id = req.body.id;
     var quantity = req.body.quantity;
-    bill_detail_md.updateQuantity(id, quantity).then(data => {
-        return res.jsonp(data);
-    }).catch(err => {
-        console.log(err);
-    });
+
+    try {
+        var b_ids = await bill_detail_md.getBillIdByBDId(id);
+    } catch (error) {
+        console.log(error);
+    }
+
+    var b_id = b_ids[0].b_id;
+
+    try {
+        var data1 = await bill_detail_md.updateQuantity(id, quantity);
+    } catch (error) {
+        console.log(error);
+    }
+
+    try {
+        var data2 = await bill_md.updateDate(b_id);
+        return res.jsonp(data1);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
-router.delete('/delete-item', (req, res) => {
+router.delete('/delete-item', async (req, res) => {
     var id = req.body.id;
-    bill_detail_md.deleteItem(id).then(data => {
-        return res.jsonp(data);
-    }).catch(err => {
-        console.log(err);
-    });
+
+    try {
+        var b_ids = await bill_detail_md.getBillIdByBDId(id);
+    } catch (error) {
+        console.log(error);
+    }
+
+    var b_id = b_ids[0].b_id;
+
+    try {
+        var data1 = await bill_detail_md.deleteItem(id);
+    } catch (error) {
+        console.log(error);
+    }
+
+    try {
+        var data2 = await bill_md.updateDate(b_id);
+        return res.jsonp(data1);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
-router.put('/payment', (req, res) => {
+router.put('/payment', async (req, res) => {
     var b_id = req.body.id;
-    bill_md.updateBillStatus(b_id, 3).then(data => {
-        return res.jsonp(data);
-    }).catch(err => {
-        console.log(err);
-    });
+
+    try {
+        var data1 = await bill_md.updateBillStatus(b_id, 1);
+    } catch (error) {
+        console.log(error);
+    }
+
+    try {
+        var data2 = await bill_md.updateDate(b_id);
+        return res.jsonp(data1);
+    } catch (error) {
+        console.log(error);
+    }
 });
 
 router.delete('/delete/:id', (req, res) => {
