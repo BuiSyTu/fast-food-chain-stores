@@ -117,7 +117,7 @@ router.get('/thongke', (req, res) => {
             // }
             // var resultJson = JSON.stringify(result);
             // var FavouriteFoods = JSON.stringify(resultArray); 
-            res.render("admin/chart", {
+            res.render("admin/favourtitefoodschart", {
                 FavouriteFoods
             });
         }).catch(err => {
