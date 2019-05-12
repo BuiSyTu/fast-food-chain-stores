@@ -113,7 +113,8 @@ router.get('/payment', function(req, res, next) {
 
 router.post("/payment", function(req, res){
 var params = JSON.parse(req.body.json);
-
+  var today = new Date();
+  weekNumber = today.getWeek();
   var bill = {};
   bill.customer_id = 1;
   bill.s_id = params.storeId;
@@ -121,6 +122,8 @@ var params = JSON.parse(req.body.json);
   bill.b_status = params.paymentMethod;
   bill.b_hour = bill.b_created_at.getHours();
   bill.b_day_of_week = bill.b_created_at.getDay();
+  bill.b_week_of_year = weekNumber;
+  bill.b_month_of_year = bill.b_created_at.getMonth()+1;
   bill.b_payment_method = params.paymentMethod;
 
   data = bill_md.addBill(bill);
@@ -205,4 +208,10 @@ router.put("/previousOrder", function(req, res){
     res.json({status_code: 500});
   });
 });
+
+Date.prototype.getWeek = function() {
+  var onejan = new Date(this.getFullYear(),0,1);
+  return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
+}
+
 module.exports = router;
