@@ -58,12 +58,19 @@ router.post('/signin', (req, res) => {
             if (user) {
                 let checkPassword = hash.comparePassword(data.a_password, user.a_password);
                 if (checkPassword) {
-                    console.log(user);
-                    res.redirect("/users");
-                    console.log("Đăng nhập thành công");
+                    req.session.user = user;
+                    if (user.a_role === 'admin') {
+                        res.redirect('/admin');
+                    } else if (user.a_role === 'employee') {
+                        res.redirect('/employee/list?pageIndex=1');
+                    } else {
+                        res.redirect("/users");
+                    }
+                } else {
+                    res.render("user/signin", { data: { error: "Mật khẩu không chính xác, vui lòng đăng nhập lại!" } })
                 }
             } else {
-                res.render("user/signin", { data: { error: "Tên người dùng không tồn tại" } });
+                res.render("user/signin", { data: { error: "Tên người dùng không tồn tại!" } });
             }
         }).catch(err => {
             console.log(err);

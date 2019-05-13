@@ -13,13 +13,13 @@ var bodyParser = require('body-parser');
 
 var app = express();
 //session
-// app.set('trust proxy', 1);
-// app.use(session({
-//   secret: 'secret_key',
-//   resave: false,
-//   saveUninitialized: true,
-//   cookie: { secure: true }
-// }))
+app.set('trust proxy', 1);
+app.use(session({
+  secret: 'secret_key',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
