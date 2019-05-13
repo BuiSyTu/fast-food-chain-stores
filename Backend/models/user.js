@@ -76,7 +76,42 @@ const updateUser = user => {
 
 
 
+const getUserByUsername = username => {
+    let defer = q.defer();
+    let sql = "SELECT * FROM accounts WHERE a_username = ?";
 
+    connection.query(sql, username, (err, result) => {
+        if (err) {
+            defer.reject(err);
+        } else {
+            defer.resolve(result);
+        }
+    });
+    return defer.promise;
+}
+
+const getTotalUser = () => {
+    let defer = q.defer();
+    let sql = "SELECT COUNT(a_id) as totalUser FROM accounts";
+    connection.query(sql, (err, result) => {
+        if (err) defer.reject(err);
+        else defer.resolve(result);
+    });
+    return defer.promise;
+};
+
+const getMaxUserId = () => {
+    let defer = q.defer();
+    // lấy id max dưới dạng number
+    let sql =
+        "SELECT MAX(CAST(a_id AS UNSIGNED)) AS ID_MAX FROM accounts";
+    connection.query(sql, (err, result) => {
+        if (err) {
+            defer.reject(err);
+        } else defer.resolve(result);
+    });
+    return defer.promise;
+};
 module.exports = {
     getAllUsers: getAllUsers,
     getUserById: getUserById,

@@ -1,0 +1,17 @@
+.palel-primary
+{
+    border-color: #bce8f1;
+}
+.panel-primary>.panel-heading
+{
+    background: cadetblue;
+    
+}
+.panel-primary>.panel-body
+{
+    background-color: #EDEDED;
+}
+span.req {
+    color:rgb(245, 33, 33);
+    font-size: 112%;
+}

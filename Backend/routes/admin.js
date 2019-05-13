@@ -3,6 +3,7 @@ var router = express.Router();
 const user_md = require('../models/user');
 const bill_md = require('../models/bill');
 const food_md = require('../models/foods');
+const thong_ke_md = require('../models/thong_ke');
 
 /* GET home page. */
 router.get('/allusers', function (req, res, next) {
@@ -102,7 +103,43 @@ router.get('/food/:id', (req, res, next) => {
 
 
 router.get('/', function (req, res, next) {
-    res.render("admin/index")
+
+    thong_ke_md.countFavouriteFoodWithFoodId()
+        .then(FavouriteFoods => {
+            let data = FavouriteFoods;
+            // console.log(data);
+            // console.log(data[1].f_id + " so luong : "+ data[1].count);
+        })
+    res.render("admin/index");
+})
+
+// test gg chart
+router.get('/favouritefoods', (req, res) => {
+    thong_ke_md.countFavouriteFoodWithFoodId()
+        .then(result => {
+            let FavouriteFoods = Object.keys(result).map(key=> [result[key].name, result[key].count]);
+            // console.log(FavouriteFoods);
+            // let FavouriteFoods = [];
+            // for(var i = 0; i< result.length; i++){
+            //     FavouriteFoods.push([result[i].name, result[i].count]);
+
+            // }
+            // var resultJson = JSON.stringify(result);
+            // var FavouriteFoods = JSON.stringify(resultArray); 
+            res.render("admin/favourtitefoodschart", {
+                FavouriteFoods
+            });
+        }).catch(err => {
+            console.log(err);
+        })
+})
+router.get('/allbillsinweek', (req, res) => {
+    thong_ke_md.getAllBillInWeek()
+        .then(result => {
+            res.json({data: result});
+        }).catch(err => {
+            console.log(err);
+        })
 })
 
 router.get('/adduser', function (req, res, next) {

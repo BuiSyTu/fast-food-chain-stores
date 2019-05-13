@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	<title>Hello, world!</title>
+</head>
+<body>
+	<div class="container-fluid h-100">
+		<div class="row h-100">
+			<aside class="col-12 col-md-2 p-0 bg-dark sticky-top">
+				<nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start py-2">
+					<div class="collapse navbar-collapse">
+						<ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+							<li class="nav-item">
+								<a class="nav-link pl-0 text-nowrap" href="/users"><i class="fa fa-bullseye fa-2x"></i> <span class="font-weight-bold">Brand</span></a>
+							</li>
+							<br>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="/users"><i class="fa fa-home fa-2x"></i> <span class="d-none d-md-inline">Trang chủ</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="/users/previousOrder"><i class="fa fa-clock-o fa-2x"></i> <span class="d-none d-md-inline">Đơn hàng của tôi</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="/users/favoriteFood"><i class="fa fa-heart fa-2x"></i> <span class="d-none d-md-inline">Thực đơn yêu thích</span></a>
+							</li>
+							<br>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="#"><i class="fa fa-sign-out fa-2x"></i> <span class="d-none d-md-inline">Đăng xuất</span></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</aside>
+			<main class="col bg-faded py-3" style="min-height: 650px">
+
+
+				<!-- Modal -->
+				<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="exampleModalLabel">Hủy đơn</h5>
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				          <span aria-hidden="true">&times;</span>
+				        </button>
+				      </div>
+				      <div class="modal-body">
+				        Bạn có muốn hủy đơn hàng?
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+				        <button type="button" class="btn btn-primary agree-cancel" data-dismiss="modal">Đồng ý</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<div class="content container">
+					<div class="greeting m-5">
+						<h2 class="text-center font-weight-normal">Đơn hàng của tôi</h2>
+					</div>
+
+					<div class="row justify-content-center">
+						<div class="col-8">
+							<% if(data && data.billDetails){ %>
+								<% for(var i = 0; i < data.billDetails.length ; i++) {%>
+									<% var date = data.billDetails[i].b_created_at%>
+									<div class="card mb-5 border-dark bill">
+										<div class="card-body">
+											<div class="row align-items-center">
+												<div class="col">
+													<h5 class="card-title d-inline-block">Đơn hàng</h5>
+													<p class="mb-2 text-muted">Đặt ngày <%= date.getDate() %>/<%= date.getMonth()+1 %>/<%= date.getFullYear() %>, <%= date.getHours()%>:<%= date.getMinutes()%> phút</p>
+												</div>
+												<div class="col align-middle">
+													<% if(data.billDetails[i].b_status == 0){ %>
+														<button type="button" class="btn btn-outline-secondary btn-sm cancel-order" data-toggle="modal" data-target="#exampleModal" billId="<%= data.billDetails[i].b_id %>">Hủy đơn hàng</button>
+													<%} else if(data.billDetails[i].b_status == 1) {%>
+														<p>Đã thanh toán</p>
+													<%} else if(data.billDetails[i].b_status == 2) {%>
+														<p>Đã hủy đơn</p>
+													<%}%>
+
+												</div>
+											</div>
+
+
+											<table class="table">
+												<tbody>
+													<% for(var j = 0; j < data.billDetails[i].billDetail.length; j++) {%>
+														<% var detail = data.billDetails[i].billDetail[j] %>
+														<tr>
+															<td>
+																<span class="qty"><%= detail.bd_quantity%></span> <span><%= detail.f_name%>,</span>
+																<span>loại <%= detail.t_name%>, size <%= detail.f_size%></span>
+															</td>
+															<td class="align-middle price"><%= detail.f_price%></td>
+														</tr>
+													<%}%>
+													<tr>
+														<td class="text-success">Tổng</td>
+														<td class="text-success total-order">0</td>
+													</tr>
+												</tbody>
+											</table>
+											<small>Tại <%= data.billDetails[i].s_name %>, <%= data.billDetails[i].s_address %></small>
+										</div>
+									</div>
+								<%}%>
+							<%}%>
+
+						</div>
+					</div>
+					<div class="footer">
+
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="/static/user/js/PreviousOrder.js"></script>
+</body>
+</html>

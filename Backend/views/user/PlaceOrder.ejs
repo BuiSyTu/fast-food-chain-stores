@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/user/stylesheets/common.css">
+	<link rel="stylesheet" type="text/css" href="/static/user/stylesheets/FavoriteFood.css">
+
+	<title>Hello, world!</title>
+</head>
+<body>
+	<div class="container-fluid h-100">
+		<div class="row h-100">
+			<aside class="col-12 col-md-2 p-0 bg-dark sticky-top">
+				<nav class="navbar navbar-expand navbar-dark bg-dark flex-md-column flex-row align-items-start py-2">
+					<div class="collapse navbar-collapse">
+						<ul class="flex-md-column flex-row navbar-nav w-100 justify-content-between">
+							<li class="nav-item">
+								<a class="nav-link pl-0 text-nowrap" href="/users"><i class="fa fa-bullseye fa-2x"></i> <span class="font-weight-bold">Brand</span></a>
+							</li>
+							<br>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="/users"><i class="fa fa-home fa-2x"></i> <span class="d-none d-md-inline">Trang chủ</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="/users/previousOrder"><i class="fa fa-clock-o fa-2x"></i> <span class="d-none d-md-inline">Đơn hàng của tôi</span></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="/users/favoriteFood"><i class="fa fa-heart fa-2x"></i> <span class="d-none d-md-inline">Thực đơn yêu thích</span></a>
+							</li>
+							<br>
+							<li class="nav-item">
+								<a class="nav-link pl-0" href="#"><i class="fa fa-sign-out fa-2x"></i> <span class="d-none d-md-inline">Đăng xuất</span></a>
+							</li>
+						</ul>
+					</div>
+				</nav>
+			</aside>
+			<main class="col bg-faded py-3" style="min-height: 650px">
+				<div class="content container">
+					<div class="greeting m-5">
+						<h2 class="text-center font-weight-normal">Đặt đơn hàng</h2>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-6">
+							<div class="progress mb-5">
+								<div class="progress-bar bg-success" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-4 order-md-last">
+							<div id="bill">
+								<div class="store-id d-none" storeId="<%= data.storeId %>">
+								</div>
+								<h5>Tổng hóa đơn</h5>
+								<table class="table border">
+									<tbody>
+										<% if(data.query && data.query.foodId){ %>
+											<% for(var i = 0; i < data.query.foodId.length; i++) {%>
+												<tr class="food" foodid="<%= data.query.foodId[i]%>">
+													<td>
+														<span class="order_qty_element"><%= data.query.qty[i]%></span> <span class="order_name_element"><%= data.query.foodName[i]%></span>
+														<br>
+														<span class="order_type_element"><%= data.query.typeName[i]%></span>, <span class="order_size_element"><%= data.query.size[i]%></span>
+													</td>
+													<td class="align-middle order_price_element"><%= data.query.price[i]%></td>
+													<td class="align-middle"><i class="text-danger fa fa-times fa-lg delete-item" onclick="deleteOrder(this)"></i></td>
+												</tr>
+											<%}%>
+											<tr>
+												<td class="text-success">Tổng cộng</td>
+												<td class="text-success total_order"><%= data.query.totalOrder%></td>
+												<td></td>
+											</tr>
+										<%} else {%>
+											<tr>
+												<td class="text-success">Tổng cộng</td>
+												<td class="text-success total_order">0</td>
+												<td></td>
+											</tr>
+										<%}%>
+									</tbody>
+								</table>
+								<div class="float-right mb-3">
+									<button type="button" class="btn btn-primary" id="next">Tiếp theo <i class="fa fa-arrow-right"></i></button>
+								</div>
+							</div>
+						</div>
+						<div class="col-md-8">
+							<div class="cards row justify-content-center">
+								<% if (data && data.foods){%>
+									<% for(var i = 0; i < (data.foods.length / 2); i++) {%>
+										<div class="card-deck">
+											<div class="card mb-4 ">
+												<div class="row no-gutters align-items-center">
+													<div class="col-4">
+														<img src="/static/user/imgs/foods/<%= data.foods[i * 2].f_url %>.jpg" class="card-img" alt="<%= data.foods[i * 2].f_url %>">
+													</div>
+													<div class="col-8">
+														<div class="card-body">
+															<div class="float-right">
+																<span class="f_price"><%= data.foods[i * 2].f_price %> </span>
+																	<% if (data.favorites[i * 2] == 1){ %>
+																		<i class="fa fa-heart fa-2x align-middle text-danger favorite" favoriteId="<%= data.foods[i * 2].f_id %>"></i>
+																		<i class="fa fa-heart-o fa-2x align-middle text-muted not-favorite" style="display: none;" foodId="<%= data.foods[i * 2].f_id %>"></i>
+																	<%} else {%>
+																		<i class="fa fa-heart fa-2x align-middle text-danger favorite" style="display: none;" favoriteId="<%= data.foods[i * 2].f_id %>"></i>
+																		<i class="fa fa-heart-o fa-2x align-middle text-muted not-favorite" foodId="<%= data.foods[i * 2].f_id %>"></i>
+																	<%}%>
+
+															</div>
+															<h5 class="card-title f_name"><%= data.foods[i * 2].f_name %></h5>
+															<div class="form-row mb-2">
+																<div class="col-auto mb-2">
+																	<select class="custom-select t_name">
+																		<option selected>Type</option>
+																		<% for(var x of data.foods[i * 2].t_name) { %>
+  																		<option value="<%= x %>"><%= x %></option>
+																		<%}%>
+																	</select>
+																</div>
+																<div class="col-auto mb-2">
+																	<select class="custom-select f_size">
+																		<option selected>Size</option>
+																		<% for(var x of data.foods[i * 2].f_size) { %>
+  																		<option value="<%= x %>"><%= x %></option>
+																		<%}%>
+																	</select>
+																</div>
+																<div class="col-auto mb-2">
+																	<select class="custom-select f_qty" >
+																		<option selected>Qty</option>
+																		<option value="1">1</option>
+																		<option value="2">2</option>
+																		<option value="3">3</option>
+																		<option value="4">4</option>
+																		<option value="5">5</option>
+																	</select>
+																</div>
+																<div class="col-auto mb-2">
+																	<button class="btn btn-success float-right add_to_order">Thêm</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+											<% if (!((data.foods.length % 2 != 0) && (i == data.foods.length / 2 - 0.5 ))){%>
+												<div class="card mb-4 ">
+													<div class="row no-gutters align-items-center">
+														<div class="col-4">
+															<img src="/static/user/imgs/foods/<%= data.foods[i * 2 + 1].f_url %>.jpg" class="card-img" alt="<%= data.foods[i * 2 + 1].f_url %>">
+														</div>
+														<div class="col-8">
+															<div class="card-body">
+																<div class="float-right">
+																	<span class="f_price"><%= data.foods[i * 2 + 1].f_price %> </span>
+																	<% if (data.favorites[i * 2 + 1] == 1){ %>
+																		<i class="fa fa-heart fa-2x align-middle text-danger favorite" favoriteId="<%= data.foods[i * 2 + 1].f_id %>"></i>
+																		<i class="fa fa-heart-o fa-2x align-middle text-muted not-favorite" style="display: none;" foodId="<%= data.foods[i * 2 + 1].f_id %>"></i>
+																	<%} else {%>
+																		<i class="fa fa-heart fa-2x align-middle text-danger favorite" style="display: none;" favoriteId="<%= data.foods[i * 2 + 1].f_id %>"></i>
+																		<i class="fa fa-heart-o fa-2x align-middle text-muted not-favorite" foodId="<%= data.foods[i * 2 + 1].f_id %>"></i>
+																	<%}%>
+																</div>
+																<h5 class="card-title f_name"><%= data.foods[i * 2 + 1].f_name %></h5>
+																<div class="form-row mb-2">
+																	<div class="col-auto mb-2">
+																		<select class="custom-select t_name">
+																			<option selected>Type</option>
+																			<% for(var x of data.foods[i * 2 + 1].t_name) { %>
+	  																		<option value="<%= x %>"><%= x %></option>
+																			<%}%>
+																		</select>
+																	</div>
+																	<div class="col-auto mb-2">
+																		<select class="custom-select f_size">
+																			<option selected>Size</option>
+																			<% for(var x of data.foods[i * 2 + 1].f_size) { %>
+	  																		<option value="<%= x %>"><%= x %></option>
+																			<%}%>
+																		</select>
+																	</div>
+																	<div class="col-auto mb-2">
+																		<select class="custom-select f_qty" >
+																			<option selected>Qty</option>
+																			<option value="1">1</option>
+																			<option value="2">2</option>
+																			<option value="3">3</option>
+																			<option value="4">4</option>
+																			<option value="5">5</option>
+																		</select>
+																	</div>
+																	<div class="col-auto mb-2">
+																		<button class="btn btn-success float-right add_to_order">Thêm</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											<%}%>
+										</div>
+									<%}%>
+								<%}%>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="footer">
+
+					</div>
+				</div>
+			</main>
+		</div>
+	</div>
+
+
+
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	<script src="/static/user/js/PlaceOrder.js"></script>
+	<script src="/static/user/js/FavoriteFood.js"></script>
+
+</body>
+</html>

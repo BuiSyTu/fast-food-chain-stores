@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+
+<% include components/head.ejs %>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <% include components/side-nav %>
+            <div class="col-md-10 unselect">
+                <% include components/header %>
+
+                <% include components/alert %>
+                
+                <div class="h5 mt-2">
+                    Danh sách đơn hàng
+                </div>
+                <div class="row bg-light">
+                    <% data.forEach(element => { %>
+                       <div class="col-md-2 col-sm-6 mt-2 mb-2 d-flex flex-column align-items-center justify-content-center" id=<%= "order" + element.b_id %>>
+                       <h5 class="text-info"><%= element.b_id + ". " + element.a_name %></h5>
+                        <div class= "text-center h6"><%= element.moment_date %></div>
+                        <div class="d-flex">
+                            <!-- Button trigger modal -->
+                            <button id="<%= element.b_id %>" type="button" class="btn btn-info btn-lg bill" data-toggle="modal" data-target=<%= "#modelId" + element.b_id %>>
+                                <div class="icon-list">
+                                    <i class="fas fa-bars fa-2x"></i>
+                                </div>
+                            </button>
+                            <div class="d-flex flex-column justify-content-around pointer">
+                                <a href="/employee/edit/<%= element.b_id %>">
+                                    <div class="edit" id=<%= element.b_id %>>
+                                        <i class="far fa-edit fa-2x p-1 text-success"></i>                                  
+                                    </div>
+                                </a>
+                                <div>
+                                    <i class="far fa-trash-alt fa-2x p-1 text-danger" data-toggle="modal" data-target=<%= "#del" + element.b_id %>></i>
+                                    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true" id=<%= "del" + element.b_id %>>
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <div class="text-center w-100">
+                                                        <i class="fas fa-exclamation-circle text-warning fa-4x mb-4"></i>
+                                                        <h4>Bạn có chắc ?</h4>
+                                                        <small>Bạn sẽ không thể quay lại thao tác này</small>
+                                                    </div>                                                    
+                                                </div>
+                                                <div class="modal-footer justify-content-center">
+                                                    <button type="button" class="btn btn-primary delete" id ="<%= element.b_id %>">Đồng ý, xóa nó</button>
+                                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Quay lại</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+                            aria-hidden="true" id = <%= "modelId" + element.b_id %>>
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title w-100 text-center">Đơn hàng</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="info-order">
+                                            <div class="h5">Mã hóa đơn: <%= element.b_id %></div>
+                                            <div class="h5 name">Tên khách hàng: <%= element.a_name %></div>
+                                            <div class="h5">Giới tính: <%= element.a_gender %></div>
+                                            <div class="h5 numberphone">SĐT: <%= element.a_phone %></div>
+                                            <div class="h5 date-order">Ngày đặt hàng: <%= element.b_created_at %></div>
+                                            <div class="h5 payment-method">Phương thức thanh toán: <%= (element.b_payment_method === 1) ? 'Bằng tiền mặt' : 'Bằng thẻ' %></div>
+                                            <div class="h5 status">Trạng thái đơn hàng: <%= (element.b_status ===1 ) ? 'Chưa thanh toán' : ((element.b_status === 2) ? 'Đã bị hủy' : 'Đã thanh toán') %></div>
+                                        </div>
+                                        <div class="table-item" id=<%= "table" + element.b_id %>>
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr>
+                                                        <th scope="col">#</th>
+                                                        <th scope="col">Tên món</th>
+                                                        <th scope="col">Kích cỡ</th>
+                                                        <th scope="col">Số lượng</th>
+                                                        <th scope="col">Đơn giá</th>
+                                                        <th scope="col">Thành tiền</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id=<%= "items" + element.b_id %>></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer justify-content-between">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Thoát</button>
+                                        <button type="button" class="btn btn-primary pay" style = "<%= (element.b_status === 1 ) ? 'display: block' : 'display: none'  %>" id=<%= element.b_id %>>Thanh toán</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        </div> 
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <% include components/script %>
+    <script src="/static/employee/js/index.js"></script>
+</body>
+
+</html>

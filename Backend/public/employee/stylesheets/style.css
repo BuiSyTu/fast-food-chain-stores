@@ -1,0 +1,37 @@
+body{
+    margin: 0;
+    padding: 0;
+    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+.pointer{
+    cursor: pointer;
+}
+@media (min-width: 768px){
+    .side-nav{
+        height: 100vh;
+    }
+
+    .item{
+        margin-left: -1rem;
+    }
+    .nav-item:nth-child(1){
+        position: relative;
+    }
+    .nav-item:nth-child(2){
+        position: absolute;
+        top: 7rem;
+    }
+    .username{
+        margin-left: 12rem;
+    }
+}
+
+.unselect{
+    -webkit-user-select: none;
+}
+
+.alert{
+    position: fixed;
+    top: 0;
+}
