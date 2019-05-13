@@ -11,9 +11,7 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/signup', (req, res) => {
-    res.render('user/signup', {
-        data: {}
-    });
+    res.render('user/signup', { title: 'Đăng ký' });
 });
 
 router.post('/signup', (req, res) => {
@@ -45,9 +43,7 @@ router.post('/signup', (req, res) => {
 })
 
 router.get('/signin', (req, res) => {
-    res.render('user/signin', {
-        data: {}
-    });
+    res.render('user/signin', { title: 'Đăng nhập', data: {} });
 });
 
 router.post('/signin', (req, res) => {
@@ -75,6 +71,11 @@ router.post('/signin', (req, res) => {
         }).catch(err => {
             console.log(err);
         })
-})
+});
+
+router.get("/logout", (req, res) => {
+    req.session.user = null;
+    res.redirect("/signin");
+});
 
 module.exports = router;
