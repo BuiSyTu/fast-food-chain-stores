@@ -1,10 +1,10 @@
 CREATE DATABASE  IF NOT EXISTS `fast-food-chain-stores` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
 USE `fast-food-chain-stores`;
--- MySQL dump 10.13  Distrib 8.0.11, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 8.0.12, for Win64 (x86_64)
 --
 -- Host: localhost    Database: fast-food-chain-stores
 -- ------------------------------------------------------
--- Server version	8.0.11
+-- Server version	8.0.12
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -30,14 +30,14 @@ CREATE TABLE `accounts` (
   `a_password` varchar(200) NOT NULL,
   `a_role` varchar(45) NOT NULL,
   `a_name` varchar(45) NOT NULL,
-  `a_dob` date NOT NULL,
+  `a_dob` date DEFAULT NULL,
   `a_gender` varchar(45) NOT NULL,
   `a_address` varchar(200) DEFAULT NULL,
   `a_phone` varchar(45) NOT NULL,
   `a_email` varchar(45) DEFAULT NULL,
-  `a_created_at` date NOT NULL,
+  `a_created_at` date DEFAULT NULL,
   PRIMARY KEY (`a_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,'duongquang','$2b$10$HkqB2pyko44QOmvSX8kxm.Z3UjaV5imNJx4VNlv1faRnp450C4E/C','user','Duong Dinh Quang','1997-11-16','Nam','Ha Noi','0364448460','duongquang@gmail.com','2019-05-10'),(2,'duongquang1111','$2b$10$HkqB2pyko44QOmvSX8kxm.Z3UjaV5imNJx4VNlv1faRnp450C4E/C','user','Duong Dinh Le','1997-11-16','Nam','Ha Noi','0364448460','duongquang@gmail.com','2019-05-10'),(3,'daole0606','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','user','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(4,'daole06061','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','user','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(5,'daole06062','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','user','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(6,'daole06063','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','user','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(7,'daole06064','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','user','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(8,'daole06065','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','user','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(9,'daole06066','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','employee','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(11,'quangquang','$2b$10$LJ9vYGATpyeLxhOS2oFT8OCi4yZznlqscXKzs.ge5mckSDEx0eoBi','user','Duong Dinh Le','1999-11-11','Nam','Ha Noi','222222222','duongquang@gmail.com','2019-05-12');
+INSERT INTO `accounts` VALUES (1,'duongquang','$2b$10$HkqB2pyko44QOmvSX8kxm.Z3UjaV5imNJx4VNlv1faRnp450C4E/C','user','Duong Dinh Quang','1997-11-16','Nữ','Ha Noi','0364448460','duongquang@gmail.com','2019-05-10'),(2,'duongquang1111','$2b$10$HkqB2pyko44QOmvSX8kxm.Z3UjaV5imNJx4VNlv1faRnp450C4E/C','user','Duong Dinh Le','1997-11-16','Nam','Ha Noi','0364448460','duongquang@gmail.com','2019-05-10'),(3,'daole0606','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','user','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(4,'daole06061','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','user','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(5,'daole06062','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','user','Dao Thi Le','1997-01-06','Nữ','Ha Noi','1111111111','','2019-05-10'),(6,'daole06063','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','user','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(7,'daole06064','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','user','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(8,'daole06065','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','user','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(9,'daole06066','$2b$10$chiReUidm24fPTBtVDG2Lui7smttjuZ/5G9FzS6iQ1P40cYGe5rPO','employee','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111','','2019-05-10'),(11,'quangquang','$2b$10$LJ9vYGATpyeLxhOS2oFT8OCi4yZznlqscXKzs.ge5mckSDEx0eoBi','user','Duong Dinh Le','1999-11-11','Nam','Ha Noi','222222222','duongquang@gmail.com','2019-05-12'),(12,'tubs12','$2b$10$HkqB2pyko44QOmvSX8kxm.Z3UjaV5imNJx4VNlv1faRnp450C4E/C','admin','Dao Thi Le','1997-01-06','Nam','Ha Noi','1111111111',NULL,'2019-05-10');
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -158,7 +158,7 @@ DROP TABLE IF EXISTS `foods`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `foods` (
-  `t_id` int(11) NOT NULL,
+  `t_id` int(11) DEFAULT NULL,
   `f_id` int(11) NOT NULL AUTO_INCREMENT,
   `f_price` double NOT NULL,
   `f_name` varchar(255) NOT NULL,
@@ -167,7 +167,7 @@ CREATE TABLE `foods` (
   PRIMARY KEY (`f_id`),
   KEY `foods_types_idx` (`t_id`),
   CONSTRAINT `foods_types` FOREIGN KEY (`t_id`) REFERENCES `types` (`t_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -176,7 +176,7 @@ CREATE TABLE `foods` (
 
 LOCK TABLES `foods` WRITE;
 /*!40000 ALTER TABLE `foods` DISABLE KEYS */;
-INSERT INTO `foods` VALUES (1,1,10000,'Cà phê','1','caphe'),(2,2,20000,'Cà phê','1','caphe'),(1,3,20000,'Cà phê','1','caphe'),(3,4,10000,'Cà phê','1','caphe'),(9,5,20000,'Trà sữa','1','trasua'),(5,6,20000,'Trà sữa','1','trasua'),(2,7,10000,'Trà sữa','1','trasua'),(3,8,20000,'Trà sữa','1','trasua'),(5,9,20000,'Trà sữa','1','trasua'),(1,10,12000,'Trà sữa','2','trasua'),(2,11,24000,'Trà sữa','2','trasua'),(1,12,22000,'Trà sữa','2','trasua'),(3,13,14000,'Cà phê','1','caphe'),(9,14,22000,'Trà sữa','2','trasua'),(5,15,22000,'Trà sữa','2','trasua'),(2,16,14000,'Trà sữa','2','trasua'),(3,17,22000,'Trà sữa','2','trasua'),(5,18,22000,'Trà sữa','2','trasua');
+INSERT INTO `foods` VALUES (NULL,1,10001,'Cà phê','1','caphe'),(NULL,2,20002,'Cà phê','1','caphe'),(NULL,3,20001,'Cà phê','1','caphe'),(3,4,10002,'Cà phê','1','caphe'),(NULL,5,20001,'Trà sữa','1','trasua'),(NULL,6,20001,'Trà sữa','1','trasua'),(2,7,10000,'Trà sữa','1','trasua'),(3,8,20000,'Trà sữa','1','trasua'),(NULL,9,20001,'Trà sữa','1','trasua'),(NULL,10,12000,'Trà sữa','2','trasua'),(2,11,24000,'Trà sữa','2','trasua'),(NULL,12,22001,'Trà sữa','2','trasua'),(3,13,14000,'Cà phê','1','caphe'),(9,14,22000,'Trà sữa','2','trasua'),(5,15,22000,'Trà sữa','2','trasua'),(2,16,14000,'Trà sữa','2','trasua'),(NULL,17,22001,'Trà sữa','2','trasua'),(5,18,22000,'Trà sữa','2','trasua');
 /*!40000 ALTER TABLE `foods` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,4 +238,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-12 16:26:54
+-- Dump completed on 2019-05-13 22:29:54
