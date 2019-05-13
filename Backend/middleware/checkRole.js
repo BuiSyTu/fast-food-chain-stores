@@ -8,7 +8,7 @@ const checkAdminRole = (req, res, next) => {
             res.render('error', { message: 'Bạn không có quyền truy nhập vào trang này!', error: { status: 500, stack: "" } });
         }
     } else {
-        res.render('error', { message: 'Bạn chưa đăng nhập!', error: { status: 500, stack: "" } });
+        res.redirect('/signin');
     }
 
 }
@@ -23,7 +23,7 @@ const checkEmployeeRole = (req, res, next) => {
             res.render('error', { message: 'Bạn không có quyền truy nhập vào trang này!', error: { status: 500, stack: "" } });
         }
     } else {
-        res.render('error', { message: 'Bạn chưa đăng nhập!', error: { status: 500, stack: "" } });
+        res.redirect('/signin');
     }
 
 }
@@ -37,7 +37,7 @@ const checkUserRole = (req, res, next) => {
             res.render('error', { message: 'Bạn không có quyền truy nhập vào trang này!', error: { status: 500, stack: "" } });
         }
     } else {
-        res.render('error', { message: 'Bạn chưa đăng nhập!', error: { status: 500, stack: "" } });
+        res.redirect('/signin');
     }
 
 }

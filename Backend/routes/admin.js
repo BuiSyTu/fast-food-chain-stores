@@ -5,8 +5,8 @@ const bill_md = require('../models/bill');
 const food_md = require('../models/foods');
 const thong_ke_md = require('../models/thong_ke');
 const checkRole = require('../middleware/checkRole');
-
-
+const dateDate_md = require('../common/dateData');
+var dataThongKe={};
 var today = new Date();
 
 
@@ -108,13 +108,25 @@ router.get('/food/:id', [checkRole.checkAdminRole], (req, res, next) => {
 
 
 router.get('/', [checkRole.checkAdminRole], function (req, res, next) {
-    thong_ke_md.countFavouriteFoodWithFoodId()
-        .then(FavouriteFoods => {
-            let data = FavouriteFoods;
-            // console.log(data);
-            // console.log(data[1].f_id + " so luong : "+ data[1].count);
+    let weekOfYear = dateDate_md.getWeekOfYear();
+    thong_ke_md.getAllBillInWeek(today.getFullYear(), weekOfYear)
+        .then(result => {
+            result = JSON.parse(JSON.stringify(result))[0];
+            (result.count != null) ? dataThongKe.allBillInWeek = result.count: dataThongKe.allBillInWeek = 0;
+            return thong_ke_md.getAllBillInMonth(today.getFullYear(), today.getMonth() + 1);
         })
-    res.render("admin/index");
+        .then(result => {
+            result = JSON.parse(JSON.stringify(result))[0];
+            (result.count != null) ? dataThongKe.allBillInMonth = result.count: dataThongKe.allBillInMonth = 0;
+            // return thong_ke_md.getAllProductInDay(dateFormat(today, "yyyy-mm-dd"));
+            return thong_ke_md.getAllProductInDay('2019-05-14');
+        }).then(result=>{
+            result = JSON.parse(JSON.stringify(result))[0];
+            (result.quantity != null) ? dataThongKe.allProductInDay = result.quantity: dataThongKe.allProductInDay = 0;
+        }).catch(err => {
+            console.log(err);
+        });
+        res.render("admin/index", {data: dataThongKe });
 })
 
 // test gg chart
