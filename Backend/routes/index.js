@@ -69,7 +69,7 @@ router.post('/signin', (req, res) => {
                 res.render("user/signin", { data: { error: "Tên người dùng không tồn tại!" } });
             }
         }).catch(err => {
-            console.log(err);
+            res.render("user/signin", { data: { error: "Tài khoản hoặc mật khẩu không chính xác, vui lòng đăng nhập lại!" } });
         })
 });
 
