@@ -8,16 +8,16 @@
 3. Click thư mục Back-end, chạy lệnh console: npm start
 4. Truy cập vào địa chỉ ban đầu ở đường dẫn localhost:3000/signin
 
-# Các tài khoản để test:
+## Các tài khoản để test:
 
-* role: admin: 
-- id: tubs12
-- pass: 123456
+-  role: admin: 
+id: tubs12
+pass: 123456
 
-* role: customer: 
-- id: duongquang
-- pass: 123456
+- role: customer: 
+id: duongquang
+pass: 123456
 
-* role: employee
-- id: daole06066
-- pass: 111111
+- role: employee
+id: daole06066
+pass: 111111
