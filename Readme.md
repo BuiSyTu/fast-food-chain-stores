@@ -10,14 +10,14 @@
 
 ## Các tài khoản để test:
 
--  role: admin: 
-id: tubs12
-pass: 123456
+1. role: admin: 
+- id: tubs12
+- pass: 123456
 
-- role: customer: 
-id: duongquang
-pass: 123456
+2. role: customer: 
+- id: duongquang
+- pass: 123456
 
-- role: employee
-id: daole06066
-pass: 111111
+3. role: employee
+- id: daole06066
+- pass: 111111
