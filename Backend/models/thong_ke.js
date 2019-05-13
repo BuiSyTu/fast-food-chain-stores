@@ -7,8 +7,8 @@ var today = new Date();
 var dataThongKe={};
 
 function countFavouriteFoodWithFoodId() {
-    var defer = q.defer();
-    var sql = "SELECT f_name name, COUNT(f_id) as count FROM favourites NATURAL JOIN foods  GROUP BY f_name ";
+    let defer = q.defer();
+    let sql = "SELECT f_name name, COUNT(f_id) as count FROM favourites NATURAL JOIN foods  GROUP BY f_name ";
     conn.query(sql, (err, result) => {
         if (err) defer.reject(err);
         else defer.resolve(result);
@@ -19,8 +19,8 @@ function countFavouriteFoodWithFoodId() {
 
 
 function getAllBillInWeek(yearNow, weekNow) {
-    var defer = q.defer();
-    var sql = "SELECT COUNT(b_id) as count FROM bills WHERE b_year = " + yearNow + " AND b_week_of_year = " + weekNow;
+    let defer = q.defer();
+    let sql = "SELECT COUNT(b_id) as count FROM bills WHERE b_year = " + yearNow + " AND b_week_of_year = " + weekNow;
     conn.query(sql, (err, result) => {
         if (err) {
             defer.reject(err);
@@ -32,8 +32,8 @@ function getAllBillInWeek(yearNow, weekNow) {
 }
 
 function getAllBillInMonth(yearNow, monthNow) {
-    var defer = q.defer();
-    var sql = "SELECT COUNT(b_id) as count FROM bills WHERE b_year = " + yearNow + " AND b_month_of_year = " + monthNow;
+    let defer = q.defer();
+    let sql = "SELECT COUNT(b_id) as count FROM bills WHERE b_year = " + yearNow + " AND b_month_of_year = " + monthNow;
     conn.query(sql, (err, result) => {
         if (err) {
             defer.reject(err);
@@ -44,7 +44,18 @@ function getAllBillInMonth(yearNow, monthNow) {
     return defer.promise;
 }
 
-// function getAllProductInDay(dayNow, )
+function getAllProductInDay(dayNow){
+    let defer = q.defer();
+    let sql = "SELECT SUM(bd_quantity) quantity FROM bills NATURAL JOIN bill_detail where b_created_at >= "+ "'"+dayNow+"'";
+    conn.query(sql, (err, result) => {
+        if (err) {
+            defer.reject(err);
+        } else {
+            defer.resolve(result)
+        };
+    });
+    return defer.promise;
+}
 
 function getDataThongKe() {
     let weekOfYear = dateDate_md.getWeekOfYear();
@@ -68,5 +79,6 @@ module.exports = {
     countFavouriteFoodWithFoodId: countFavouriteFoodWithFoodId,
     getAllBillInWeek: getAllBillInWeek,
     getAllBillInMonth: getAllBillInMonth,
-    getDataThongKe: getDataThongKe
+    getDataThongKe: getDataThongKe,
+    getAllProductInDay: getAllProductInDay
 }
