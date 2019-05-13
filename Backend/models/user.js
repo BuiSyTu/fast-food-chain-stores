@@ -117,5 +117,8 @@ module.exports = {
     getUserById: getUserById,
     addUser: addUser,
     deleteUser: deleteUser,
-    updateUser: updateUser
+    updateUser: updateUser,
+    getUserByUsername: getUserByUsername,
+    getTotalUser: getTotalUser,
+    getMaxUserId: getMaxUserId
 }
