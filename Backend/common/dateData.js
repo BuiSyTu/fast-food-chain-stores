@@ -1,7 +1,7 @@
 var dateFormat = require('dateformat');
+var today = new Date();
 
 function getWeekOfYear() {
-    var today = new Date();
     return today.getWeek();
 }
 
@@ -16,7 +16,20 @@ function getOneWeekAgo(date) {
     return oneWeekAgo;
 }
 
+function getDateWeekAgo() {
+    let dayNow = today.getDay();
+    let weekAgo = {
+        dateStartWeekAgo: new Date(),
+        nextDate: new Date()
+    }
+    weekAgo.dateStartWeekAgo.setDate(today.getDate() - dayNow  - 7);
+    weekAgo.nextDate.setDate(today.getDate() - dayNow - 6);
+
+    return weekAgo;
+}
+
 module.exports = {
     getWeekOfYear: getWeekOfYear,
-    getOneWeekAgo: getOneWeekAgo
+    getOneWeekAgo: getOneWeekAgo,
+    getDateWeekAgo: getDateWeekAgo
 }

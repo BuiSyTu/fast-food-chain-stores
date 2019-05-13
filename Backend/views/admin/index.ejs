@@ -96,13 +96,13 @@
                     <i class="material-icons">library_books</i>
                   </div>
                   <p class="card-category">Tổng đơn trong tuần</p>
-                  <h3 class="card-title"><%= data.allBillInWeek %>
+                  <h3 class="card-title"><%= dataThongKe.allBillInWeek %>
                     <small>Đơn</small>
                   </h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">today</i><%= data.week%>
+                    <i class="material-icons">today</i><%= date.week%>
                   </div>
                 </div>
               </div>
@@ -114,11 +114,11 @@
                     <i class="material-icons">shop_two</i>
                   </div>
                   <p class="card-category">Tổng đơn trong tháng</p>
-                  <h3 class="card-title"><%= data.allBillInMonth %><small> Đơn</small></h3>
+                  <h3 class="card-title"><%= dataThongKe.allBillInMonth %><small> Đơn</small></h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">today</i> <%= data.month%>
+                    <i class="material-icons">today</i> <%= date.month%>
                   </div>
                 </div>
               </div>
@@ -130,11 +130,11 @@
                     <i class="material-icons">today</i>
                   </div>
                   <p class="card-category">Sản phẩm bán trong ngày</p>
-                  <h3 class="card-title"><%= data.allProductInDay %> <small>Sản phẩm</small></h3>
+                  <h3 class="card-title"><%= dataThongKe.allProductInDay %> <small>Sản phẩm</small></h3>
                 </div>
                 <div class="card-footer">
                   <div class="stats">
-                    <i class="material-icons">today</i> Ngày : <%= data.day %>
+                    <i class="material-icons">today</i> Ngày : <%= date.day %>
                   </div>
                 </div>
               </div>
