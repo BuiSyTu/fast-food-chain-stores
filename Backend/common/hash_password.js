@@ -1,15 +1,8 @@
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
 
+const hashPassword = password => bcrypt.hashSync(password, saltRounds);
 
-function hashPasword(password) {
-    return bcrypt.hashSync(password, saltRounds);
-}
+const comparePassword = (password, hashPassword) => bcrypt.compareSync(password, hashPassword);
 
-function comparePassword(password, hashPassword){
-    return bcrypt.compareSync(password, hashPassword);
-}
-module.exports = {
-    hashPassword: hashPasword,
-    comparePassword: comparePassword
-}
+module.exports = { hashPassword, comparePassword }

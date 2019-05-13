@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Đăng nhập</title>
+    <title><%= title %></title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -20,6 +20,14 @@
 <body>
 
     <div class="container">
+        <% if (data.error) { %>
+        <div id = "alert" role="alert" class="text-center alert alert-warning">
+            <%= data.error %>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+        </div>
+        <% } %>
         <div class="row">
             <aside class="col-sm-4 mx-auto my-5">
                 <div class="card">
