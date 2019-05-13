@@ -5,6 +5,10 @@ const bill_md = require('../models/bill');
 const food_md = require('../models/foods');
 const thong_ke_md = require('../models/thong_ke');
 
+
+var today = new Date();
+
+
 /* GET home page. */
 router.get('/allusers', function (req, res, next) {
     let data = {};
@@ -101,13 +105,6 @@ router.get('/food/:id', (req, res, next) => {
 
 
 router.get('/', function (req, res, next) {
-
-    thong_ke_md.countFavouriteFoodWithFoodId()
-        .then(FavouriteFoods => {
-            let data = FavouriteFoods;
-            // console.log(data);
-            // console.log(data[1].f_id + " so luong : "+ data[1].count);
-        })
     res.render("admin/index");
 })
 
@@ -131,13 +128,27 @@ router.get('/favouritefoods', (req, res) => {
             console.log(err);
         })
 })
-router.get('/allbillsinweek', (req, res) => {
-    thong_ke_md.getAllBillInWeek()
-        .then(result => {
-            res.json({data: result});
-        }).catch(err => {
-            console.log(err);
-        })
-})
+// router.get('/allbillsinweek', (req, res) => {
+//     let weekOfYear = dateDate_md.getWeekOfYear();
+//     thong_ke_md.getAllBillInWeek(today.getFullYear(), weekOfYear)
+//         .then(result => {
+//             res.json({data: result});
+//         }).catch(err => {
+//             console.log(err);
+//         })
+// })
+// router.get('/allbillsinmonth', (req, res) => {
+//     thong_ke_md.getAllBillInMonth(today.getFullYear(), today.getMonth()+1)
+//         .then(result => {
+//             res.json({data: result});
+//         }).catch(err => {
+//             console.log(err);
+//         })
+// })
 
+router.get('/thongke', (req, res)=>{
+    let data = thong_ke_md.getDataThongKe();
+    res.json({data});    
+    // console.log(data);
+})
 module.exports = router;
