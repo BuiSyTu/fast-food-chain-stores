@@ -18,7 +18,7 @@ app.use(session({
   secret: 'secret_key',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true }
+  cookie: { secure: false }
 }))
 
 // view engine setup
