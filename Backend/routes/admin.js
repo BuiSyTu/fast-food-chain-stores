@@ -139,9 +139,11 @@ router.get('/', [checkRole.checkAdminRole], function (req, res, next) {
     //         console.log(err);
     //     });
     dataThongKe = thong_ke_md.getDataThongKe();
+    let data2 = thong_ke_md.dataDoanhThuTheoThang(today.getFullYear());
     res.render("admin/index", {
         dataThongKe,
-        date
+        date,
+        data2
     });
 })
 
@@ -200,19 +202,20 @@ router.get('/testThongKe', (req, res) => {
 
     //     }
     // }
-    thong_ke_md.getDoanhThuTheoThang(today.getMonth() + 1, today.getFullYear())
-        .then(result => {
-            result = JSON.parse(JSON.stringify(result))[0];
-            let data2 = result.doanhthu;
-            res.json({
-                data,
-                data2
-            });
-        }).catch(err => {
-            console.log(err);
-        });
+    // thong_ke_md.getDoanhThuTheoThang(today.getMonth() + 1, today.getFullYear())
+    //     .then(result => {
+    //         result = JSON.parse(JSON.stringify(result))[0];
+    //         let data2 = result.doanhthu;
+    //         res.json({
+    //             data,
+    //             data2
+    //         });
+    //     }).catch(err => {
+    //         console.log(err);
+    //     });
 
-
+    let data2 = thong_ke_md.dataDoanhThuTheoThang(today.getFullYear());
+    res.json({data, data2});
 })
 
 router.get('/allbillsinweek', [checkRole.checkAdminRole], (req, res) => {

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8" />
   <link rel="apple-touch-icon" sizes="76x76" href="/static/admin/assets/img/apple-icon.png">
@@ -19,6 +20,7 @@
   <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="/static/admin/assets/demo/demo.css" rel="stylesheet" />
 </head>
+
 <body class="">
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
@@ -83,7 +85,7 @@
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-        <%- include ./components/Navbar %>
+      <%- include ./components/Navbar %>
       <!-- End Navbar -->
       <!-- Content -->
       <div class="content">
@@ -156,7 +158,7 @@
               </div>
             </div> -->
           </div>
-          <div class="row">
+          <!-- <div class="row">
             <div class="col-md-4">
               <div class="card card-chart">
                 <div class="card-header card-header-success">
@@ -510,11 +512,15 @@
                 </div>
               </div>
             </div>
+          </div> -->
+
+          <div class="row">
+            <div id="chart_div"></div>
           </div>
         </div>
       </div>
       <!-- End Content -->
-    <%- include ./components/footer %>
+      <%- include ./components/footer %>
     </div>
   </div>
   <div class="fixed-plugin">
@@ -562,12 +568,13 @@
           <a href="https://www.creative-tim.com/product/material-dashboard" target="_blank"
             class="btn btn-primary btn-block">Free Download</a>
         </li>
-      <li class="header-title">Want more components?</li>
-            <li class="button-container">
-                <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank" class="btn btn-warning btn-block">
-                  Get the pro version
-                </a>
-            </li> 
+        <li class="header-title">Want more components?</li>
+        <li class="button-container">
+          <a href="https://www.creative-tim.com/product/material-dashboard-pro" target="_blank"
+            class="btn btn-warning btn-block">
+            Get the pro version
+          </a>
+        </li>
         <li class="button-container">
           <a href="https://demos.creative-tim.com/material-dashboard/docs/2.1/getting-started/introduction.html"
             target="_blank" class="btn btn-default btn-block">
@@ -591,6 +598,39 @@
   </div>
   <!-- Corejs Files -->
   <%- include ./components/CorejsFiles%>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    google.charts.load('current', { packages: ['corechart', 'bar'] });
+    google.charts.setOnLoadCallback(drawBasic);
+    function drawBasic() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Tháng');
+      data.addColumn('number', 'Doanh Thu');
+      var chartData = <%- JSON.stringify(data2) %>;
+      data.addRows(chartData);
+
+      var options = {
+        title: 'Doanh Thu Theo Tháng',
+        hAxis: {
+          title: 'Tháng',
+          format: 'date',
+
+        },
+        vAxis: {
+          title: " Doanh Thu"
+        },
+        width: 1100,
+        height: 700
+      };
+
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_div'));
+
+      chart.draw(data, options);
+    }
+  </script>
   <!-- End Corejs files -->
 </body>
+
 </html>

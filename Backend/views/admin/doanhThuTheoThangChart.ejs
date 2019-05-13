@@ -1,0 +1,32 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script>
+    google.charts.load('current', { packages: ['corechart', 'bar'] });
+    google.charts.setOnLoadCallback(drawBasic);
+    function drawBasic() {
+
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Tháng');
+        data.addColumn('number', 'Doanh Thu');
+        var chartData = <% - JSON.stringify(data2) %>;
+        data.addRows(chartData);
+
+        var options = {
+            title: 'Doanh Thu Theo Tháng',
+            hAxis: {
+                title: 'Tháng',
+                format: 'date',
+
+            },
+            vAxis: {
+                title: " Doanh Thu"
+            },
+            width: 1500,
+            height: 1000
+        };
+
+        var chart = new google.visualization.ColumnChart(
+            document.getElementById('chart_div'));
+
+        chart.draw(data, options);
+    }
+</script>

@@ -10,6 +10,7 @@ var dataThongKe = {
         quantity: ''
     }
 };
+var doanhThuTheoThang = [];
 // dataThongKe.allBillEachDay = {};
 var dateFormat = require('dateformat');
 
@@ -160,10 +161,24 @@ function getDoanhThuTheoThang(month, year) {
             defer.reject(err);
         } else {
             defer.resolve(result)
-            console.log(sql);
+            // console.log(sql);
         };
     });
     return defer.promise;
+}
+
+function dataDoanhThuTheoThang(year){
+    for(let i=1; i<=12; i++){
+        getDoanhThuTheoThang(i,year).then(result=>{
+            result = JSON.parse(JSON.stringify(result))[0];
+            let month = "Tháng "+i;
+            if(result.doanhthu == null)  doanhthu = 0 
+            else doanhthu = result.doanhthu;
+            doanhThuTheoThang.push([month, doanhthu]);
+        })
+    }
+    // console.log(doanhThuTheoThang);
+    return doanhThuTheoThang;
 }
 module.exports = {
     countFavouriteFoodWithFoodId: countFavouriteFoodWithFoodId,
@@ -173,5 +188,6 @@ module.exports = {
     getAllProductInDay: getAllProductInDay,
     getAllBillEachDay: getAllBillEachDay,
     getDataQuantityBillEachDay: getDataQuantityBillEachDay,
-    getDoanhThuTheoThang: getDoanhThuTheoThang
+    getDoanhThuTheoThang: getDoanhThuTheoThang,
+    dataDoanhThuTheoThang: dataDoanhThuTheoThang
 }
