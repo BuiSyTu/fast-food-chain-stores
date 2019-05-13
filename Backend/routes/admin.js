@@ -4,9 +4,14 @@ const user_md = require('../models/user');
 const bill_md = require('../models/bill');
 const food_md = require('../models/foods');
 const thong_ke_md = require('../models/thong_ke');
+const checkRole = require('../middleware/checkRole');
+
+
+var today = new Date();
+
 
 /* GET home page. */
-router.get('/allusers', function (req, res, next) {
+router.get('/allusers', [checkRole.checkAdminRole], function (req, res, next) {
     let data = {};
     user_md.getAllUsers()
         .then(users => {
@@ -19,7 +24,7 @@ router.get('/allusers', function (req, res, next) {
         })
 });
 
-router.get('/user/:id', function (req, res, next) {
+router.get('/user/:id', [checkRole.checkAdminRole], function (req, res, next) {
     let id = req.params.id;
 
     user_md.getUserById(id)
@@ -32,7 +37,7 @@ router.get('/user/:id', function (req, res, next) {
         })
 })
 
-router.get('role/:id', function (req, res, next) {
+router.get('role/:id', [checkRole.checkAdminRole], function (req, res, next) {
     let id = req.params.id;
 
     user_md.getRoleById(id)
@@ -48,7 +53,7 @@ router.get('role/:id', function (req, res, next) {
 // Hoa don
 
 // tat ca hoa don
-router.get('/allbills', (req, res, next) => {
+router.get('/allbills', [checkRole.checkAdminRole], (req, res, next) => {
     bill_md.getAllBills()
         .then(bills => {
             res.json({
@@ -59,7 +64,7 @@ router.get('/allbills', (req, res, next) => {
 
 
 // hoa don theo ma hoa don : b_id
-router.get('/bill/:id', (req, res, next) => {
+router.get('/bill/:id', [checkRole.checkAdminRole], (req, res, next) => {
     let id = req.params.id;
     let data = {};
     bill_md.getBillById(id)
@@ -72,7 +77,7 @@ router.get('/bill/:id', (req, res, next) => {
 })
 
 //get all foods
-router.get('/allfoods', (req, res, next) => {
+router.get('/allfoods', [checkRole.checkAdminRole], (req, res, next) => {
     let data = {};
     food_md.getAllFoods()
         .then(foods => {
@@ -86,7 +91,7 @@ router.get('/allfoods', (req, res, next) => {
 })
 
 //get food by id: 
-router.get('/food/:id', (req, res, next) => {
+router.get('/food/:id', [checkRole.checkAdminRole], (req, res, next) => {
     let id = req.params.id;
     let data = {};
 
@@ -102,8 +107,7 @@ router.get('/food/:id', (req, res, next) => {
 })
 
 
-router.get('/', function (req, res, next) {
-
+router.get('/', [checkRole.checkAdminRole], function (req, res, next) {
     thong_ke_md.countFavouriteFoodWithFoodId()
         .then(FavouriteFoods => {
             let data = FavouriteFoods;
@@ -114,10 +118,10 @@ router.get('/', function (req, res, next) {
 })
 
 // test gg chart
-router.get('/favouritefoods', (req, res) => {
+router.get('/favouritefoods', [checkRole.checkAdminRole], (req, res) => {
     thong_ke_md.countFavouriteFoodWithFoodId()
         .then(result => {
-            let FavouriteFoods = Object.keys(result).map(key=> [result[key].name, result[key].count]);
+            let FavouriteFoods = Object.keys(result).map(key => [result[key].name, result[key].count]);
             // console.log(FavouriteFoods);
             // let FavouriteFoods = [];
             // for(var i = 0; i< result.length; i++){
@@ -133,10 +137,34 @@ router.get('/favouritefoods', (req, res) => {
             console.log(err);
         })
 })
-router.get('/allbillsinweek', (req, res) => {
+// router.get('/allbillsinweek', (req, res) => {
+//     let weekOfYear = dateDate_md.getWeekOfYear();
+//     thong_ke_md.getAllBillInWeek(today.getFullYear(), weekOfYear)
+//         .then(result => {
+//             res.json({data: result});
+//         }).catch(err => {
+//             console.log(err);
+//         })
+// })
+// router.get('/allbillsinmonth', (req, res) => {
+//     thong_ke_md.getAllBillInMonth(today.getFullYear(), today.getMonth()+1)
+//         .then(result => {
+//             res.json({data: result});
+//         }).catch(err => {
+//             console.log(err);
+//         })
+// })
+
+router.get('/thongke', (req, res)=>{
+    let data = thong_ke_md.getDataThongKe();
+    res.json({data});    
+    // console.log(data);
+})
+
+router.get('/allbillsinweek', [checkRole.checkAdminRole], (req, res) => {
     thong_ke_md.getAllBillInWeek()
         .then(result => {
-            res.json({data: result});
+            res.json({ data: result });
         }).catch(err => {
             console.log(err);
         })

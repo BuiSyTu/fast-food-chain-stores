@@ -3,10 +3,10 @@ const q = require("q");
 
 const connection = database.getConnection();
 
-const getAllBills = () => {
+const getAllBills = (pageSize, pageIndex) => {
     let defer = q.defer();
-    let sql = "SELECT * FROM bills AS B, accounts AS A WHERE B.customer_id = A.a_id ORDER BY B.b_id DESC";
-    connection.query(sql, (err, result) => {
+    let sql = "SELECT * FROM bills AS B, accounts AS A WHERE B.customer_id = A.a_id ORDER BY B.b_id DESC LIMIT  ?, ?";
+    connection.query(sql, [pageSize * (pageIndex - 1), pageSize], (err, result) => {
         if (err) defer.reject(err);
         else defer.resolve(result);
     });
@@ -65,11 +65,26 @@ const updateBillStatus = (b_id, b_status) => {
     });
     return defer.promise;
 }
+
+const updateDate = (b_id) => {
+
+    var defer = q.defer();
+    connection.query('UPDATE bills SET b_update_at = ? WHERE b_id = ?', [new Date(), b_id], (err, result) => {
+        if (err) {
+            defer.reject(err);
+        } else {
+            defer.resolve(result);
+        }
+    });
+    return defer.promise;
+}
+
 module.exports = {
     getAllBills: getAllBills,
     getBillById: getBillById,
     addBill: addBill,
     deleteBill: deleteBill,
     updateBill: updateBill,
-    updateBillStatus: updateBillStatus
+    updateBillStatus: updateBillStatus,
+    updateDate: updateDate
 }
