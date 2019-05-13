@@ -35,20 +35,20 @@
         </a>
       </div>
       <div class="sidebar-wrapper">
-        <ul class="nav">
+                <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="/admin">
               <i class="material-icons">dashboard</i>
               <p>Dashboard</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" href="/admin/allusers">
               <i class="material-icons">person</i>
               <p>User Profile</p>
             </a>
           </li>
-          <li class="nav-item ">
+          <li class="nav-item active" >
             <a class="nav-link" href="/admin/allfoods">
               <i class="material-icons">fastfood</i>
               <p>Food</p>
@@ -83,90 +83,73 @@
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <%include ./components/Navbar%>
+        <%include ./components/Navbar%>
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
-          <div class="row">
-            <div class="col-md-2"> </div>
+        <form method ="POST" action ="/admin/addfood">
+            <div class="row">
+                <div class="col-md-2"> </div>
             <div class="col-md-8">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Edit Profile</h4>
-                  <p class="card-category">Complete your profile</p>
+                  <h4 class="card-title">Add Food</h4>
+                  <p class="card-category">Complete Ìnormation</p>
                 </div>
                 <div class="card-body">
                   <form>
                     <div class="row">
-                      <div class="col-md-5">
+                      <div class="col-md-6">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Account Name (disabled)</label>
-                          <input type="text" class="form-control a_username" value="<%= data.a_username%>" disabled>
+                          <label class="bmd-label-floating">Food Name</label>
+                          <input type="text" class="form-control a_role" name="f_name">
                         </div>
                       </div>
-                      <div class="col-md-3">
+                     <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Role</label>
-                          <input type="email" class="form-control a_role" value="<%= data.a_role%>">
+                          <label class="bmd-label-floating">Type Id</label>
+                          <input type="text" class="form-control a_role" name="t_id">
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-5">
+                      <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Username</label>
-                          <input type="text" class="form-control a_name" value="<%= data.a_name%>">
+                          <label class="bmd-label-floating">Food size</label>
+                          <input type="text" class="form-control a_name" name="f_size">
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Gender</label>
-                          <input type="text" class="form-control a_gender" value="<%= data.a_gender%>">
+                          <label class="bmd-label-floating">Food price</label>
+                          <input type="text" class="form-control a_gender" name="f_price" >
                         </div>
                       </div>
                     </div>
                     <div class="row">
-                      <div class="col-md-5">
+                      <div class="col-md-10">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Phone</label>
-                          <input type="text" class="form-control a_phone" value="<%= data.a_phone%>">
-                        </div>
-                      </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label class="bmd-label-floating">Enmail</label>
-                          <input type="text" class="form-control a_email" value="<%= data.a_email%>">
+                          <label class="bmd-label-floating">Food URL</label>
+                          <input type="text" class="form-control a_phone" name="f_url">
                         </div>
                       </div>
                     </div>
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div class="form-group">
-                          <label>More Infomation</label>
-                          <div class="form-group">
-                            <label class="bmd-label-floating"> This is not reuqired. Update in next time </label>
-                            <textarea class="form-control" rows="5"></textarea>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <input type="button" class="btn btn-primary pull-right user_edit" value="Update Profile">
+                    <button type="submit" class="btn btn-primary pull-right"> Complete</button>
                     <div class="clearfix"></div>
-                    <input type="hidden" name="a_id" value="<%= data.a_id%>" class="a_id">
                   </form>
                 </div>
               </div>
             </div>
           </div>
+                  </form>
         </div>
       </div>
       <!--Footer -->
-      <%- include ./components/footer%>
-      <!--End Footer -->
+    <%- include ./components/footer%>
+    <!--End Footer -->
     </div>
   </div>
-  <% include ./components/CorejsFiles%>
-  <script src="/static/admin/assets/js/User.js"></script>
+    <% include ./components/CorejsFiles%>
 </body>
 
 </html>

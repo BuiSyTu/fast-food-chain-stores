@@ -58,6 +58,24 @@ const deleteUser = id => {
     return defer.promise;
 }
 
+const updateUser = user => {
+    let defer = q.defer();
+    connection.query(
+        "UPDATE accounts SET a_username = ?, a_role =?, a_name = ?, a_gender = ?, a_phone = ?, a_email = ? Where a_id = ?",
+        [user.a_username, user.a_role, user.a_name, user.a_gender, user.a_phone, user.a_email, user.a_id],
+        (err, rows) => {
+            if (err) {
+                defer.reject(err);
+            } else {
+                defer.resolve(rows);
+            }
+        }
+    );
+    return defer.promise;
+}
+
+
+
 const getUserByUsername = username => {
     let defer = q.defer();
     let sql = "SELECT * FROM accounts WHERE a_username = ?";
@@ -99,7 +117,5 @@ module.exports = {
     getUserById: getUserById,
     addUser: addUser,
     deleteUser: deleteUser,
-    getUserByUsername: getUserByUsername,
-    getTotalUser: getTotalUser,
-    getMaxUserId: getMaxUserId
+    updateUser: updateUser
 }

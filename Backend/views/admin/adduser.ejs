@@ -35,7 +35,7 @@
         </a>
       </div>
       <div class="sidebar-wrapper">
-        <ul class="nav">
+                <ul class="nav">
           <li class="nav-item">
             <a class="nav-link" href="/admin">
               <i class="material-icons">dashboard</i>
@@ -83,7 +83,7 @@
     </div>
     <div class="main-panel">
       <!-- Navbar -->
-      <%include ./components/Navbar%>
+        <%include ./components/Navbar%>
       <!-- End Navbar -->
       <div class="content">
         <div class="container-fluid">
@@ -92,22 +92,28 @@
             <div class="col-md-8">
               <div class="card">
                 <div class="card-header card-header-primary">
-                  <h4 class="card-title">Edit Profile</h4>
+                  <h4 class="card-title">Add User</h4>
                   <p class="card-category">Complete your profile</p>
                 </div>
                 <div class="card-body">
-                  <form>
+                  <form method ="POST" action ="/admin/adduser">
                     <div class="row">
                       <div class="col-md-5">
                         <div class="form-group">
-                          <label class="bmd-label-floating">Account Name (disabled)</label>
-                          <input type="text" class="form-control a_username" value="<%= data.a_username%>" disabled>
+                          <label class="bmd-label-floating">Account Name</label>
+                          <input type="text" class="form-control" name = "a_username" reuqired>
                         </div>
                       </div>
-                      <div class="col-md-3">
+                    <div class="col-md-5">
+                        <div class="form-group">
+                          <label class="bmd-label-floating">Password</label>
+                          <input type="text" class="form-control" name = "a_password" reuqired>
+                        </div>
+                      </div>
+                      <div class="col-md-2">
                         <div class="form-group">
                           <label class="bmd-label-floating">Role</label>
-                          <input type="email" class="form-control a_role" value="<%= data.a_role%>">
+                          <input type="text" class="form-control" name = "a_role" reuqired>
                         </div>
                       </div>
                     </div>
@@ -115,13 +121,13 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">Username</label>
-                          <input type="text" class="form-control a_name" value="<%= data.a_name%>">
+                          <input type="text" class="form-control" name = "a_name" reuqired>
                         </div>
                       </div>
                       <div class="col-md-4">
                         <div class="form-group">
                           <label class="bmd-label-floating">Gender</label>
-                          <input type="text" class="form-control a_gender" value="<%= data.a_gender%>">
+                          <input type="text" class="form-control" name = "a_gender" reuqired>
                         </div>
                       </div>
                     </div>
@@ -129,13 +135,13 @@
                       <div class="col-md-5">
                         <div class="form-group">
                           <label class="bmd-label-floating">Phone</label>
-                          <input type="text" class="form-control a_phone" value="<%= data.a_phone%>">
+                          <input type="text" class="form-control" name = "a_phone" reuqired>
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label class="bmd-label-floating">Enmail</label>
-                          <input type="text" class="form-control a_email" value="<%= data.a_email%>">
+                          <input type="email" class="form-control" name = "a_email" reuqired>
                         </div>
                       </div>
                     </div>
@@ -150,9 +156,8 @@
                         </div>
                       </div>
                     </div>
-                    <input type="button" class="btn btn-primary pull-right user_edit" value="Update Profile">
+                    <button type="submit" class="btn btn-primary pull-right">Complete</button>
                     <div class="clearfix"></div>
-                    <input type="hidden" name="a_id" value="<%= data.a_id%>" class="a_id">
                   </form>
                 </div>
               </div>
@@ -161,12 +166,11 @@
         </div>
       </div>
       <!--Footer -->
-      <%- include ./components/footer%>
-      <!--End Footer -->
+    <%- include ./components/footer%>
+    <!--End Footer -->
     </div>
   </div>
-  <% include ./components/CorejsFiles%>
-  <script src="/static/admin/assets/js/User.js"></script>
+    <% include ./components/CorejsFiles%>
 </body>
 
 </html>
