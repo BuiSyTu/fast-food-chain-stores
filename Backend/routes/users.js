@@ -85,7 +85,7 @@ router.delete("/favoriteFood", [checkRole.checkUserRole], function (req, res) {
 
 router.put("/favoriteFood", [checkRole.checkUserRole], function (req, res) {
   var params = req.body;
-  params.a_id = 1;
+  params.a_id = req.session.user.a_id;
 
   data = favoriteFood_md.addFavorite(params);
 
