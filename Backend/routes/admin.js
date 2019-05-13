@@ -6,6 +6,10 @@ const food_md = require('../models/foods');
 const thong_ke_md = require('../models/thong_ke');
 const checkRole = require('../middleware/checkRole');
 
+
+var today = new Date();
+
+
 /* GET home page. */
 router.get('/allusers', [checkRole.checkAdminRole], function (req, res, next) {
     let data = {};
@@ -131,6 +135,30 @@ router.get('/favouritefoods', [checkRole.checkAdminRole], (req, res) => {
             console.log(err);
         })
 })
+// router.get('/allbillsinweek', (req, res) => {
+//     let weekOfYear = dateDate_md.getWeekOfYear();
+//     thong_ke_md.getAllBillInWeek(today.getFullYear(), weekOfYear)
+//         .then(result => {
+//             res.json({data: result});
+//         }).catch(err => {
+//             console.log(err);
+//         })
+// })
+// router.get('/allbillsinmonth', (req, res) => {
+//     thong_ke_md.getAllBillInMonth(today.getFullYear(), today.getMonth()+1)
+//         .then(result => {
+//             res.json({data: result});
+//         }).catch(err => {
+//             console.log(err);
+//         })
+// })
+
+router.get('/thongke', (req, res)=>{
+    let data = thong_ke_md.getDataThongKe();
+    res.json({data});    
+    // console.log(data);
+})
+
 router.get('/allbillsinweek', [checkRole.checkAdminRole], (req, res) => {
     thong_ke_md.getAllBillInWeek()
         .then(result => {
