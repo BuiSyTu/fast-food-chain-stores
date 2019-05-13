@@ -4,7 +4,7 @@ var dateFormat = require('dateformat');
 var user_md = require('../models/user');
 var hash = require('../common/hash_password');
 /* GET home page. */
-router.get('/', function (req, res, next) {
+router.get('/', (req, res, next) => {
     res.render('index', {
         title: 'Express'
     });
@@ -37,7 +37,6 @@ router.post('/signup', (req, res) => {
     }
 
     user_md.addUser(account).then(result => {
-        // console.log(dateFormat(new Date(), "yyyy-mm-dd"));
         res.redirect("/signin");
         console.log("Sign up success");
     }).catch(err => {
@@ -51,20 +50,24 @@ router.get('/signin', (req, res) => {
     });
 });
 
-router.post('/signin', (req, res)=>{
+router.post('/signin', (req, res) => {
     let data = req.body;
     user_md.getUserByUsername(data.a_username)
-    .then(users=>{
-        let user = users[0];
-        let checkPassword = hash.comparePassword(data.a_password, user.a_password);
-        if(checkPassword){
-            console.log(user);
-            res.render("index",{data: user});
-            console.log("Sign in success");
-        }
-    }).catch(err=>{
-        console.log(err);
-    })
+        .then(users => {
+            let user = users[0];
+            if (user) {
+                let checkPassword = hash.comparePassword(data.a_password, user.a_password);
+                if (checkPassword) {
+                    console.log(user);
+                    res.redirect("/users");
+                    console.log("Đăng nhập thành công");
+                }
+            } else {
+                res.render("user/signin", { data: { error: "Tên người dùng không tồn tại" } });
+            }
+        }).catch(err => {
+            console.log(err);
+        })
 })
 
 module.exports = router;
