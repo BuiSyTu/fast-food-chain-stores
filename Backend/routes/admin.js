@@ -6,9 +6,14 @@ const food_md = require('../models/foods');
 const thong_ke_md = require('../models/thong_ke');
 const checkRole = require('../middleware/checkRole');
 const dateDate_md = require('../common/dateData');
-var dataThongKe={};
+const dateFormat = require('dateformat');
 var today = new Date();
 
+var dataThongKe = {
+    day: dateFormat(today, "yyyy-mm-dd"),
+    month: "Tháng " + (today.getMonth() + 1) + " Năm "+ (today.getFullYear()),
+    week: "Tuần "+ dateDate_md.getWeekOfYear() + " Năm "+ (today.getFullYear())
+};
 
 /* GET home page. */
 router.get('/allusers', [checkRole.checkAdminRole], function (req, res, next) {
@@ -118,8 +123,7 @@ router.get('/', [checkRole.checkAdminRole], function (req, res, next) {
         .then(result => {
             result = JSON.parse(JSON.stringify(result))[0];
             (result.count != null) ? dataThongKe.allBillInMonth = result.count: dataThongKe.allBillInMonth = 0;
-            // return thong_ke_md.getAllProductInDay(dateFormat(today, "yyyy-mm-dd"));
-            return thong_ke_md.getAllProductInDay('2019-05-14');
+            return thong_ke_md.getAllProductInDay(dateFormat(today, "yyyy-mm-dd"));
         }).then(result=>{
             result = JSON.parse(JSON.stringify(result))[0];
             (result.quantity != null) ? dataThongKe.allProductInDay = result.quantity: dataThongKe.allProductInDay = 0;
