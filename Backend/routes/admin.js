@@ -213,9 +213,11 @@ router.get('/testThongKe', (req, res) => {
     //     }).catch(err => {
     //         console.log(err);
     //     });
-
-    let data2 = thong_ke_md.dataDoanhThuTheoThang(today.getFullYear());
-    res.json({data, data2});
+    let data2  = thong_ke_md.dataDoanhThuTheoThang(today.getFullYear());
+    res.json({
+        data,
+        data2
+    });
 })
 
 router.get('/allbillsinweek', [checkRole.checkAdminRole], (req, res) => {

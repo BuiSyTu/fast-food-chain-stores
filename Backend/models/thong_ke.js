@@ -168,16 +168,20 @@ function getDoanhThuTheoThang(month, year) {
 }
 
 function dataDoanhThuTheoThang(year){
-    for(let i=1; i<=12; i++){
-        getDoanhThuTheoThang(i,year).then(result=>{
-            result = JSON.parse(JSON.stringify(result))[0];
-            let month = "Tháng "+i;
-            if(result.doanhthu == null)  doanhthu = 0 
-            else doanhthu = result.doanhthu;
-            doanhThuTheoThang.push([month, doanhthu]);
-        })
+    // var doanhThuTheoThang = [];
+    if(doanhThuTheoThang.length == 0){
+
+        for(let i=1; i<=12; i++){
+            getDoanhThuTheoThang(i,year).then(result=>{
+                result = JSON.parse(JSON.stringify(result))[0];
+                let month = "Tháng "+i;
+                if(result.doanhthu == null)  doanhthu = 0 
+                else doanhthu = result.doanhthu;
+                doanhThuTheoThang.push([month, doanhthu]);
+            })
+        }
+        // console.log(doanhThuTheoThang);
     }
-    // console.log(doanhThuTheoThang);
     return doanhThuTheoThang;
 }
 module.exports = {
