@@ -215,7 +215,10 @@ router.get('/testThongKe', (req, res) => {
     //     });
 
     let data2 = thong_ke_md.dataDoanhThuTheoThang(today.getFullYear());
-    res.json({data, data2});
+    // if (data2 === [] ) {
+
+    // }
+    res.json({ data, data2 });
 })
 
 router.get('/allbillsinweek', [checkRole.checkAdminRole], (req, res) => {
