@@ -11,13 +11,13 @@
 ## Các tài khoản để test:
 
 1. role: admin: 
-- id: tubs12
+- id: admin123
 - pass: 123456
 
 2. role: customer: 
-- id: duongquang
+- id: user123
 - pass: 123456
 
 3. role: employee
-- id: daole06066
-- pass: 111111
+- id: employee
+- pass: 123456
