@@ -54,8 +54,9 @@ function getAllBillInMonth(yearNow, monthNow) {
 }
 
 function getAllProductInDay(dayNow) {
+    let endGame = dayNow + "23:59:59";
     let defer = q.defer();
-    let sql = "SELECT SUM(bd_quantity) quantity FROM bills NATURAL JOIN bill_detail where b_created_at >= " + "'" + dayNow + "'";
+    let sql = "SELECT SUM(bd_quantity) quantity FROM bills NATURAL JOIN bill_detail where b_created_at >= " + "'" + dayNow + "' AND b_created_at <= '" + endGame + "'";
     conn.query(sql, (err, result) => {
         if (err) {
             defer.reject(err);
@@ -71,16 +72,16 @@ function getDataThongKe() {
     getAllBillInWeek(today.getFullYear(), weekOfYear)
         .then(result => {
             result = JSON.parse(JSON.stringify(result))[0];
-            (result.count != null) ? dataThongKe.allBillInWeek = result.count: dataThongKe.allBillInWeek = 0;
+            (result.count != null) ? dataThongKe.allBillInWeek = result.count : dataThongKe.allBillInWeek = 0;
             return getAllBillInMonth(today.getFullYear(), today.getMonth() + 1);
         })
         .then(result => {
             result = JSON.parse(JSON.stringify(result))[0];
-            (result.count != null) ? dataThongKe.allBillInMonth = result.count: dataThongKe.allBillInMonth = 0;
+            (result.count != null) ? dataThongKe.allBillInMonth = result.count : dataThongKe.allBillInMonth = 0;
             return getAllProductInDay(dateFormat(today, "yyyy-mm-dd"));
         }).then(result => {
             result = JSON.parse(JSON.stringify(result))[0];
-            (result.quantity != null) ? dataThongKe.allProductInDay = result.quantity: dataThongKe.allProductInDay = 0;
+            (result.quantity != null) ? dataThongKe.allProductInDay = result.quantity : dataThongKe.allProductInDay = 0;
         }).catch(err => {
             console.log(err);
         });
@@ -113,7 +114,7 @@ function getDataQuantityBillEachDay(startDate, nextDate) {
         .then(result => {
             result = JSON.parse(JSON.stringify(result))[0];
             // (result.quantity != null) ? dataThongKe.allBillEachDay.quantity = result.quantity: dataThongKe.allBillEachDay.quantity = 0;
-            (result.quantity != null) ? dataThongKe.allBillEachDay.quantity = result.quantity: dataThongKe.allBillEachDay.quantity = 0;
+            (result.quantity != null) ? dataThongKe.allBillEachDay.quantity = result.quantity : dataThongKe.allBillEachDay.quantity = 0;
             switch (startDate.getDay()) {
                 case 0:
                     // dataThongKe.allBillEachDay.day = "Chủ nhật";
@@ -167,15 +168,13 @@ function getDoanhThuTheoThang(month, year) {
     return defer.promise;
 }
 
-function dataDoanhThuTheoThang(year){
-    // var doanhThuTheoThang = [];
-    if(doanhThuTheoThang.length == 0){
-
-        for(let i=1; i<=12; i++){
-            getDoanhThuTheoThang(i,year).then(result=>{
+function dataDoanhThuTheoThang(year) {
+    if (doanhThuTheoThang.length == 0) {
+        for (let i = 1; i <= 12; i++) {
+            getDoanhThuTheoThang(i, year).then(result => {
                 result = JSON.parse(JSON.stringify(result))[0];
-                let month = "Tháng "+i;
-                if(result.doanhthu == null)  doanhthu = 0 
+                let month = "Tháng " + i;
+                if (result.doanhthu == null) doanhthu = 0
                 else doanhthu = result.doanhthu;
                 doanhThuTheoThang.push([month, doanhthu]);
             })
@@ -184,6 +183,7 @@ function dataDoanhThuTheoThang(year){
     }
     return doanhThuTheoThang;
 }
+
 module.exports = {
     countFavouriteFoodWithFoodId: countFavouriteFoodWithFoodId,
     getAllBillInWeek: getAllBillInWeek,
