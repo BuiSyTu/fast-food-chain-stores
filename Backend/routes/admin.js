@@ -7,6 +7,7 @@ const thong_ke_md = require('../models/thong_ke');
 const checkRole = require('../middleware/checkRole');
 const dateDate_md = require('../common/dateData');
 const dateFormat = require('dateformat');
+var dataThongKe = {};
 var today = new Date();
 
 var date = {
@@ -119,32 +120,42 @@ router.get('/food/:id', [checkRole.checkAdminRole], (req, res, next) => {
         })
 })
 
-
 router.get('/', [checkRole.checkAdminRole], function (req, res, next) {
-    // let weekOfYear = dateDate_md.getWeekOfYear();
-    // thong_ke_md.getAllBillInWeek(today.getFullYear(), weekOfYear)
-    //     .then(result => {
-    //         result = JSON.parse(JSON.stringify(result))[0];
-    //         (result.count != null) ? dataThongKe.allBillInWeek = result.count: dataThongKe.allBillInWeek = 0;
-    //         return thong_ke_md.getAllBillInMonth(today.getFullYear(), today.getMonth() + 1);
-    //     })
-    //     .then(result => {
-    //         result = JSON.parse(JSON.stringify(result))[0];
-    //         (result.count != null) ? dataThongKe.allBillInMonth = result.count: dataThongKe.allBillInMonth = 0;
-    //         return thong_ke_md.getAllProductInDay(dateFormat(today, "yyyy-mm-dd"));
-    //     }).then(result=>{
-    //         result = JSON.parse(JSON.stringify(result))[0];
-    //         (result.quantity != null) ? dataThongKe.allProductInDay = result.quantity: dataThongKe.allProductInDay = 0;
-    //     }).catch(err => {
-    //         console.log(err);
-    //     });
-    dataThongKe = thong_ke_md.getDataThongKe();
-    let data2 = thong_ke_md.dataDoanhThuTheoThang(today.getFullYear());
-    res.render("admin/index", {
-        dataThongKe,
-        date,
-        data2
-    });
+    let weekOfYear = dateDate_md.getWeekOfYear();
+    thong_ke_md.getAllBillInWeek(today.getFullYear(), weekOfYear)
+        .then(result => {
+            result = JSON.parse(JSON.stringify(result))[0];
+            (result.count != null) ? dataThongKe.allBillInWeek = result.count: dataThongKe.allBillInWeek = 0;
+            return thong_ke_md.getAllBillInMonth(today.getFullYear(), today.getMonth() + 1);
+        })
+        .then(result => {
+            result = JSON.parse(JSON.stringify(result))[0];
+            (result.count != null) ? dataThongKe.allBillInMonth = result.count: dataThongKe.allBillInMonth = 0;
+            return thong_ke_md.getAllProductInDay(dateFormat(today, "yyyy-mm-dd"));
+        }).then(result => {
+            result = JSON.parse(JSON.stringify(result))[0];
+            (result.quantity != null) ? dataThongKe.allProductInDay = result.quantity: dataThongKe.allProductInDay = 0;
+            return thong_ke_md.getDoanhThuTheoThang();
+        })
+        .then(result => {
+            result = JSON.parse(JSON.stringify(result));
+            result = Object.keys(result).map(key => ["Tháng " + result[key].month, result[key].doanhthu]);
+            dataThongKe.doanhThuTheoThang = result;
+            return thong_ke_md.getDoanhThuTheoStore();
+        })
+        .then(result=>{
+            result = JSON.parse(JSON.stringify(result));
+            result = Object.keys(result).map(key => [result[key].name, result[key].doanhthu]);
+            dataThongKe.doanhThuTheoStore = result;
+            res.render("admin/index", {
+                dataThongKe,
+                date
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+
 })
 
 // test gg chart
@@ -189,36 +200,14 @@ router.get('/testThongKe', (req, res) => {
     let startDate = dateDate_md.getDateWeekAgo().dateStartWeekAgo;
     let nextDate = dateDate_md.getDateWeekAgo().nextDate;
     let billEachDay = [];
-    let data = thong_ke_md.getDataQuantityBillEachDay(startDate, nextDate);
-    // if (data.allBillEachDay.day != "") {
-    //     for (let i = 0; i < 7; i++) {
-    //         billEachDay.push({
-    //            data.allBillEachDay.day,
-    //            data.allBillEachDay.quantity
-    //         });
-    //         console.log(billEachDay);
-    //         startDate.setDate(startDate.getDate() + 1);
-    //         nextDate.setDate(nextDate.getDate() + 1);
+    thong_ke_md.getDoanhThuTheoStore().then(result => {
+        res.json({
+            result
+        });
 
-    //     }
-    // }
-    // thong_ke_md.getDoanhThuTheoThang(today.getMonth() + 1, today.getFullYear())
-    //     .then(result => {
-    //         result = JSON.parse(JSON.stringify(result))[0];
-    //         let data2 = result.doanhthu;
-    //         res.json({
-    //             data,
-    //             data2
-    //         });
-    //     }).catch(err => {
-    //         console.log(err);
-    //     });
-
-    let data2 = thong_ke_md.dataDoanhThuTheoThang(today.getFullYear());
-    // if (data2 === [] ) {
-
-    // }
-    res.json({ data, data2 });
+    }).catch(err => {
+        console.log(err);
+    });
 })
 
 router.get('/allbillsinweek', [checkRole.checkAdminRole], (req, res) => {
@@ -355,5 +344,9 @@ router.put("/food/edit", function (req, res, next) {
         })
     }
 })
+
+function convertData() {
+
+}
 
 module.exports = router;

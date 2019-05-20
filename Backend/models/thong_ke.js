@@ -67,26 +67,26 @@ function getAllProductInDay(dayNow) {
     return defer.promise;
 }
 
-function getDataThongKe() {
-    let weekOfYear = dateDate_md.getWeekOfYear();
-    getAllBillInWeek(today.getFullYear(), weekOfYear)
-        .then(result => {
-            result = JSON.parse(JSON.stringify(result))[0];
-            (result.count != null) ? dataThongKe.allBillInWeek = result.count : dataThongKe.allBillInWeek = 0;
-            return getAllBillInMonth(today.getFullYear(), today.getMonth() + 1);
-        })
-        .then(result => {
-            result = JSON.parse(JSON.stringify(result))[0];
-            (result.count != null) ? dataThongKe.allBillInMonth = result.count : dataThongKe.allBillInMonth = 0;
-            return getAllProductInDay(dateFormat(today, "yyyy-mm-dd"));
-        }).then(result => {
-            result = JSON.parse(JSON.stringify(result))[0];
-            (result.quantity != null) ? dataThongKe.allProductInDay = result.quantity : dataThongKe.allProductInDay = 0;
-        }).catch(err => {
-            console.log(err);
-        });
-    return dataThongKe;
-}
+// function getDataThongKe() {
+//     let weekOfYear = dateDate_md.getWeekOfYear();
+//     getAllBillInWeek(today.getFullYear(), weekOfYear)
+//         .then(result => {
+//             result = JSON.parse(JSON.stringify(result))[0];
+//             (result.count != null) ? dataThongKe.allBillInWeek = result.count : dataThongKe.allBillInWeek = 0;
+//             return getAllBillInMonth(today.getFullYear(), today.getMonth() + 1);
+//         })
+//         .then(result => {
+//             result = JSON.parse(JSON.stringify(result))[0];
+//             (result.count != null) ? dataThongKe.allBillInMonth = result.count : dataThongKe.allBillInMonth = 0;
+//             return getAllProductInDay(dateFormat(today, "yyyy-mm-dd"));
+//         }).then(result => {
+//             result = JSON.parse(JSON.stringify(result))[0];
+//             (result.quantity != null) ? dataThongKe.allProductInDay = result.quantity : dataThongKe.allProductInDay = 0;
+//         }).catch(err => {
+//             console.log(err);
+//         });
+//     return dataThongKe;
+// }
 
 function getAllBillEachDay(start, end) {
     let defer = q.defer();
@@ -114,7 +114,7 @@ function getDataQuantityBillEachDay(startDate, nextDate) {
         .then(result => {
             result = JSON.parse(JSON.stringify(result))[0];
             // (result.quantity != null) ? dataThongKe.allBillEachDay.quantity = result.quantity: dataThongKe.allBillEachDay.quantity = 0;
-            (result.quantity != null) ? dataThongKe.allBillEachDay.quantity = result.quantity : dataThongKe.allBillEachDay.quantity = 0;
+            (result.quantity != null) ? dataThongKe.allBillEachDay.quantity = result.quantity: dataThongKe.allBillEachDay.quantity = 0;
             switch (startDate.getDay()) {
                 case 0:
                     // dataThongKe.allBillEachDay.day = "Chủ nhật";
@@ -151,12 +151,10 @@ function getDataQuantityBillEachDay(startDate, nextDate) {
     return dataThongKe;
 }
 
-function getDoanhThuTheoThang(month, year) {
-    let startDate = year + "-" + month + "-" + "01";
-    let endDate = year + "-" + month + "-" + "31";
+function getDoanhThuTheoThang() {
 
     let defer = q.defer();
-    let sql = "SELECT SUM(bd_id * f_price) doanhthu FROM bills b, bill_detail bd, foods f where b.b_created_at >= '" + startDate + "' and b_created_at <= '" + endDate + "' and b.b_id = bd.b_id and bd.f_id = f.f_id";
+    let sql = "SELECT b_month_of_year month, SUM(bd_id * f_price) doanhthu FROM `fast-food-chain-stores`.bills b, `fast-food-chain-stores`.bill_detail bd, foods f where b.b_id = bd.b_id and bd.f_id = f.f_id and b_status = 1 group by b_month_of_year order by b_month_of_year ASC";
     conn.query(sql, (err, result) => {
         if (err) {
             defer.reject(err);
@@ -168,30 +166,31 @@ function getDoanhThuTheoThang(month, year) {
     return defer.promise;
 }
 
-function dataDoanhThuTheoThang(year) {
-    if (doanhThuTheoThang.length == 0) {
-        for (let i = 1; i <= 12; i++) {
-            getDoanhThuTheoThang(i, year).then(result => {
-                result = JSON.parse(JSON.stringify(result))[0];
-                let month = "Tháng " + i;
-                if (result.doanhthu == null) doanhthu = 0
-                else doanhthu = result.doanhthu;
-                doanhThuTheoThang.push([month, doanhthu]);
-            })
-        }
-        // console.log(doanhThuTheoThang);
-    }
-    return doanhThuTheoThang;
+function getDoanhThuTheoStore() {
+    let defer = q.defer();
+    let sql = "SELECT s_name name,SUM(bd_id * f_price) doanhthu " +
+        "FROM bills b, bill_detail bd, foods f, stores s " +
+        "where b.b_id = bd.b_id and bd.f_id = f.f_id and b.s_id = s.s_id and b_status = 1 " +
+        "group by s_name " +
+        "order by s_name ASC";
+    conn.query(sql, (err, result) => {
+        if (err) {
+            defer.reject(err);
+        } else {
+            defer.resolve(result)
+        };
+    });
+    return defer.promise;
 }
+
 
 module.exports = {
     countFavouriteFoodWithFoodId: countFavouriteFoodWithFoodId,
     getAllBillInWeek: getAllBillInWeek,
     getAllBillInMonth: getAllBillInMonth,
-    getDataThongKe: getDataThongKe,
     getAllProductInDay: getAllProductInDay,
     getAllBillEachDay: getAllBillEachDay,
     getDataQuantityBillEachDay: getDataQuantityBillEachDay,
     getDoanhThuTheoThang: getDoanhThuTheoThang,
-    dataDoanhThuTheoThang: dataDoanhThuTheoThang
+    getDoanhThuTheoStore: getDoanhThuTheoStore
 }

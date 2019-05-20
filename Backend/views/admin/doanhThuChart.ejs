@@ -1,0 +1,65 @@
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script>
+    google.charts.load('current', { packages: ['corechart', 'bar'] });
+
+    // draw chart
+    google.charts.setOnLoadCallback(drawChartMonth);
+    google.charts.setOnLoadCallback(drawChartStore);
+
+    // doanh thu theo thang
+    function drawChartMonth() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Tháng');
+      data.addColumn('number', 'Doanh Thu');
+      var chartData = <%- JSON.stringify(dataThongKe.doanhThuTheoThang) %>;
+      data.addRows(chartData);
+
+      var options = {
+        title: 'Doanh Thu Theo Tháng',
+        hAxis: {
+          title: 'Tháng',
+          format: 'date',
+
+        },
+        vAxis: {
+          title: " Doanh Thu"
+        },
+        width: 1100,
+        height: 700
+      };
+
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_month'));
+
+      chart.draw(data, options);
+    }
+
+    // doanh thu theo store
+    function drawChartStore() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Store');
+      data.addColumn('number', 'Doanh Thu');
+      var chartData = <%- JSON.stringify(dataThongKe.doanhThuTheoStore) %>;
+      data.addRows(chartData);
+
+      var options = {
+        title: 'Doanh Thu Theo Cửa Hàng',
+        hAxis: {
+          title: 'Cửa hàng'
+        },
+        vAxis: {
+          title: " Doanh Thu"
+        },
+        width: 1100,
+        height: 700
+      };
+
+      var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_store'));
+
+      chart.draw(data, options);
+    }
+  </script>
+
