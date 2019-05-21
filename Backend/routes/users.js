@@ -8,7 +8,7 @@ var billDetail_md = require('../models/bill_detail');
 var checkRole = require('../middleware/checkRole');
 /* GET users listing. */
 router.get('/', [checkRole.checkUserRole], function (req, res, next) {
-  res.render("user/start", { username: req.session.user.a_username, title: 'Bắt đầu' });
+  res.render("user/start", { username: req.session.user.a_name, title: 'Bắt đầu' });
 });
 
 router.get('/selectShop', [checkRole.checkUserRole], function (req, res, next) {
